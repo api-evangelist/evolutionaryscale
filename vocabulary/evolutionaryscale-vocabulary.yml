@@ -1,0 +1,126 @@
+vocabulary: EvolutionaryScale
+vocabularyId: evolutionaryscale
+created: '2026-05-24'
+modified: '2026-05-24'
+description: >
+  Domain vocabulary for the EvolutionaryScale Forge API and the open-source `esm` SDK. Covers protein
+  language model concepts, multi-track protein representations, the Forge operational surface, and the
+  ESM3 / ESM Cambrian model families.
+concepts:
+  - term: Protein Language Model
+    aliases: [PLM, protein LM]
+    definition: A neural network trained on protein sequences to predict masked or next residues, learning representations useful for many downstream tasks.
+  - term: Multimodal Protein Model
+    definition: A model that jointly conditions on multiple protein tracks (sequence, structure, secondary structure, SASA, function), such as ESM3.
+  - term: Track
+    definition: A modality of a protein representation. ESM3 tracks include sequence, structure, secondary_structure, sasa, and function.
+  - term: ESMProtein
+    definition: The raw multi-track protein object in the `esm` SDK. Carries sequence, coordinates, SASA, secondary structure, and function annotations.
+  - term: ESMProteinTensor
+    definition: The tokenized representation of a protein across all ESM3 tracks. Required input for forward_and_sample and logits operations.
+  - term: Structure Tokenizer
+    definition: Module that converts atom37 backbone coordinates into a discrete vocabulary of structure tokens (and decodes them back).
+  - term: Iterative Masked Sampling
+    definition: Generation procedure where masked positions are progressively filled in over `num_steps` iterations using model logits.
+  - term: pLDDT
+    definition: Per-residue confidence score (0–100) produced by structure-prediction heads, derived from AlphaFold's metric.
+  - term: PTM
+    definition: Predicted TM-score; a per-structure quality estimate in [0, 1].
+  - term: MSA
+    aliases: [Multiple Sequence Alignment]
+    definition: A stack of homologous sequences used to inform structure prediction.
+  - term: Inverse Folding
+    definition: Generating amino acid sequences that fold to a target backbone structure.
+  - term: esmGFP
+    definition: A novel green fluorescent protein designed end-to-end with ESM3; symbolic example of evolutionary leaps via generative models.
+models:
+  - id: esm3-large-2024-03
+    family: ESM3
+    parameters: 98B
+    tracks: [sequence, structure, secondary_structure, sasa, function]
+    access: forge
+  - id: esm3-medium-2024-08
+    family: ESM3
+    parameters: 7B
+    tracks: [sequence, structure, secondary_structure, sasa, function]
+    access: forge
+  - id: esm3-small-2024-08
+    family: ESM3
+    parameters: 1.4B
+    tracks: [sequence, structure, secondary_structure, sasa, function]
+    access: forge
+  - id: esm3-open
+    family: ESM3
+    parameters: 1.4B
+    tracks: [sequence, structure, secondary_structure, sasa, function]
+    access: open-weights
+    huggingface: biohub/esm3-sm-open-v1
+  - id: esmc-6b-2024-12
+    family: ESM Cambrian
+    parameters: 6B
+    tracks: [sequence]
+    access: forge
+  - id: esmc-600m-2024-12
+    family: ESM Cambrian
+    parameters: 600M
+    tracks: [sequence]
+    access: open-weights
+    huggingface: biohub/esmc-600m-2024-12
+  - id: esmc-300m-2024-12
+    family: ESM Cambrian
+    parameters: 300M
+    tracks: [sequence]
+    access: open-weights
+    huggingface: biohub/esmc-300m-2024-12
+operations:
+  - name: generate
+    surface: forge-esm3
+    description: Iterative masked sampling to fill a protein track.
+  - name: batch_generate
+    surface: forge-esm3
+    description: Multi-protein generation in a single request.
+  - name: encode
+    surface: forge-esm3
+    description: ESMProtein to ESMProteinTensor.
+  - name: decode
+    surface: forge-esm3
+    description: ESMProteinTensor to ESMProtein.
+  - name: forward_and_sample
+    surface: forge-esm3
+    description: Single forward pass with sampling.
+  - name: logits
+    surface: forge-esm3
+    description: Raw logits / embeddings / hidden states.
+  - name: esmc.encode
+    surface: forge-esmc
+    description: Sequence-only ESM Cambrian tokenization.
+  - name: esmc.logits
+    surface: forge-esmc
+    description: ESM Cambrian per-residue logits and embeddings.
+  - name: fold
+    surface: forge-folding
+    description: Predict atom37 backbone coordinates from sequence.
+  - name: inverse_fold
+    surface: forge-folding
+    description: Design sequences from structure.
+  - name: msa
+    surface: forge-folding
+    description: Fetch MSA for a sequence.
+tools:
+  - name: esm
+    type: SDK
+    language: Python
+    url: https://pypi.org/project/esm/
+  - name: esm-sagemaker
+    type: Deployment
+    url: https://github.com/evolutionaryscale/esm-sagemaker
+  - name: esm-partner
+    type: Integration
+    url: https://github.com/evolutionaryscale/esm-partner
+standards:
+  - name: atom37
+    description: Standard 37-atom per-residue coordinate representation used in AlphaFold and ESM3.
+  - name: DSSP
+    description: Secondary structure assignment scheme used for the secondary_structure track.
+  - name: A3M
+    description: MSA serialization format returned by the msa endpoint.

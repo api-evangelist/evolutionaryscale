@@ -1,0 +1,197 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM Cambrian API
+  description: >
+    Hosted inference API for the ESM Cambrian (ESM C) protein representation
+    learning family. ESM C is a drop-in replacement for ESM2 with comparable
+    or better accuracy at substantially reduced memory footprint. Provides
+    encode and logits operations for sequence embedding workflows. Available
+    in 300M, 600M, and 6B parameter checkpoints.
+  version: 2024-12-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+  - url: https://forge.evolutionaryscale.ai
+    description: EvolutionaryScale Forge Production
+security:
+  - BearerAuth: []
+tags:
+  - name: Embeddings
+    description: Sequence-only tokenization and representation extraction.
+  - name: Sampling
+    description: Per-residue logits and hidden state retrieval.
+paths:
+  /api/v1/esmc/encode:
+    post:
+      summary: Encode Protein Sequence With ESM C
+      description: >
+        Tokenize an `ESMProtein` (sequence track only) into an
+        `ESMProteinTensor` ready for logits / embedding retrieval. ESM C
+        operates over the sequence track exclusively.
+      operationId: esmcEncode
+      tags:
+        - Embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESMCEncodeRequest'
+            examples:
+              SimpleEncode:
+                $ref: '#/components/examples/SimpleEncodeExample'
+      responses:
+        '200':
+          description: Sequence tensor for the supplied protein.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProteinTensor'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/esmc/logits:
+    post:
+      summary: Get ESM C Logits And Embeddings
+      description: >
+        Returns per-residue sequence logits and (optionally) embeddings or
+        hidden states for an `ESMProteinTensor` produced by `esmc/encode`.
+        Use for representation learning, classification heads, mutational
+        effect prediction, and similar downstream tasks.
+      operationId: esmcLogits
+      tags:
+        - Sampling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESMCLogitsRequest'
+      responses:
+        '200':
+          description: Logits and embedding output.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogitsOutput'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.
+  schemas:
+    ESMProtein:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: "MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ"
+    ESMProteinTensor:
+      type: object
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+    LogitsConfig:
+      type: object
+      properties:
+        sequence:
+          type: boolean
+          default: true
+        return_embeddings:
+          type: boolean
+          default: false
+        return_hidden_states:
+          type: boolean
+          default: false
+        ith_hidden_layer:
+          type: integer
+          default: -1
+    LogitsOutput:
+      type: object
+      properties:
+        logits:
+          type: object
+          properties:
+            sequence:
+              type: array
+              items:
+                type: array
+                items:
+                  type: number
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        hidden_states:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+    ESMCEncodeRequest:
+      type: object
+      required:
+        - model
+        - protein
+      properties:
+        model:
+          type: string
+          example: esmc-300m-2024-12
+          enum:
+            - esmc-300m-2024-12
+            - esmc-600m-2024-12
+            - esmc-6b-2024-12
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
+    ESMCLogitsRequest:
+      type: object
+      required:
+        - model
+        - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esmc-300m-2024-12
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        config:
+          $ref: '#/components/schemas/LogitsConfig'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    SimpleEncodeExample:
+      summary: Encode a short protein sequence
+      value:
+        model: esmc-300m-2024-12
+        protein:
+          sequence: "AAAAA"

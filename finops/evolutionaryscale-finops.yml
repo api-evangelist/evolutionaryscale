@@ -1,0 +1,84 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: EvolutionaryScale
+providerId: evolutionaryscale
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - AI
+  - Biology
+  - Proteins
+description: >
+  FOCUS-aligned FinOps profile for EvolutionaryScale. Forge API pricing is currently negotiated under
+  contact-sales beta agreements, so cost data flows through invoiced contracts rather than per-token
+  metering. AWS Marketplace deployments (SageMaker, BioNeMo, NIM) ride the AWS invoice with standard
+  EC2 / SageMaker / Bedrock service codes. Local deployments of ESM3-open and ESM C open weights have
+  no direct provider cost — only the operator's compute and storage.
+sources:
+  - https://forge.evolutionaryscale.ai
+  - https://aws.amazon.com/marketplace/seller-profile?id=seller-iw2nbscescndm
+  - https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: EvolutionaryScale
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Contract / Usage-Based
+  billingFrequency: Monthly / Annual
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Credit
+  primaryUnit: request
+  secondaryUnits:
+    - residue
+    - instance_hour
+focusColumns:
+  ServiceName: EvolutionaryScale Forge
+  ServiceCategory: AI and Machine Learning
+  ProviderName: EvolutionaryScale
+  PublisherName: EvolutionaryScale
+  InvoiceIssuerName: EvolutionaryScale or AWS (Marketplace)
+  PricingCategory: Contract
+  PricingUnit: request
+  BillingCurrency: USD
+meters:
+  - name: forge_requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - model
+      - endpoint
+      - account
+  - name: forge_residues
+    unit: residue
+    aggregation: sum
+    dimensions:
+      - model
+      - endpoint
+      - account
+    notes: Per-residue compute is the dominant cost driver for ESM3 generation, encoding, and logits operations.
+  - name: aws_instance_hours
+    unit: instance_hour
+    aggregation: sum
+    dimensions:
+      - instance_type
+      - region
+      - model
+    notes: Applies to AWS Marketplace deployments via SageMaker / BioNeMo / NIM.
+billingArtifacts:
+  - type: invoice
+    description: Direct invoice from EvolutionaryScale for Forge beta and enterprise customers.
+  - type: aws-cur
+    description: AWS Cost and Usage Report (CUR) entries for Marketplace deployments.

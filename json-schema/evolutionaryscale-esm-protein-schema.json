@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/evolutionaryscale/evolutionaryscale-esm-protein-schema.json",
+  "title": "EvolutionaryScale ESMProtein",
+  "description": "Schema for the `ESMProtein` object exposed by the EvolutionaryScale `esm` Python SDK and accepted by the Forge ESM3 API. An ESMProtein is the canonical multi-track representation of a protein covering sequence, structure, secondary structure, SASA, and function annotations.",
+  "type": "object",
+  "properties": {
+    "sequence": {
+      "type": "string",
+      "description": "Amino acid sequence in one-letter codes (A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V). An underscore `_` denotes a masked position to be filled by generation.",
+      "pattern": "^[ARNDCEQGHILKMFPSTWYV_X*-]+$",
+      "example": "MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT"
+    },
+    "coordinates": {
+      "type": "array",
+      "description": "Per-residue atom37 coordinates, shape [L, 37, 3]. Missing atoms are represented as nulls or NaNs depending on serialization.",
+      "items": {
+        "type": "array",
+        "minItems": 37,
+        "maxItems": 37,
+        "items": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "secondary_structure": {
+      "type": "string",
+      "description": "DSSP-style per-residue secondary structure string. Common codes: H (alpha-helix), E (beta-strand), C (coil)."
+    },
+    "sasa": {
+      "type": "array",
+      "description": "Per-residue solvent accessible surface area (square Angstroms).",
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "function_annotations": {
+      "type": "array",
+      "description": "Optional list of per-residue function annotations referencing InterPro / GO / Pfam labels.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "start": { "type": "integer", "minimum": 1 },
+          "end": { "type": "integer", "minimum": 1 },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "plddt": {
+      "type": "array",
+      "description": "Per-residue pLDDT confidence score (0.0–100.0).",
+      "items": { "type": "number", "minimum": 0, "maximum": 100 }
+    },
+    "ptm": {
+      "type": "number",
+      "description": "Predicted TM-score (0.0–1.0) for the structure.",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "anyOf": [
+    { "required": ["sequence"] },
+    { "required": ["coordinates"] }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,67 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "es": "https://forge.evolutionaryscale.ai/v1/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "bio": "http://www.bioontology.org/ontology/",
+    "uniprot": "http://purl.uniprot.org/core/",
+
+    "ESMProtein": {
+      "@id": "es:ESMProtein",
+      "@context": {
+        "sequence": { "@id": "es:ESMProtein/sequence", "@type": "xsd:string" },
+        "coordinates": { "@id": "es:ESMProtein/coordinates", "@container": "@list" },
+        "secondary_structure": { "@id": "es:ESMProtein/secondaryStructure", "@type": "xsd:string" },
+        "sasa": { "@id": "es:ESMProtein/sasa", "@container": "@list" },
+        "function_annotations": { "@id": "es:ESMProtein/functionAnnotations", "@container": "@list" },
+        "plddt": { "@id": "es:ESMProtein/plddt", "@container": "@list" },
+        "ptm": { "@id": "es:ESMProtein/ptm", "@type": "xsd:float" }
+      }
+    },
+
+    "ESMProteinTensor": {
+      "@id": "es:ESMProteinTensor",
+      "@context": {
+        "sequence": { "@id": "es:ESMProteinTensor/sequence", "@container": "@list" },
+        "structure": { "@id": "es:ESMProteinTensor/structure", "@container": "@list" },
+        "secondary_structure": { "@id": "es:ESMProteinTensor/secondaryStructure", "@container": "@list" },
+        "sasa": { "@id": "es:ESMProteinTensor/sasa", "@container": "@list" },
+        "function": { "@id": "es:ESMProteinTensor/function", "@container": "@list" }
+      }
+    },
+
+    "GenerationConfig": {
+      "@id": "es:GenerationConfig",
+      "@context": {
+        "track": { "@id": "es:GenerationConfig/track", "@type": "xsd:string" },
+        "num_steps": { "@id": "es:GenerationConfig/numSteps", "@type": "xsd:integer" },
+        "temperature": { "@id": "es:GenerationConfig/temperature", "@type": "xsd:float" },
+        "top_p": { "@id": "es:GenerationConfig/topP", "@type": "xsd:float" },
+        "schedule": { "@id": "es:GenerationConfig/schedule", "@type": "xsd:string" }
+      }
+    },
+
+    "FoldRequest": {
+      "@id": "es:FoldRequest",
+      "@context": {
+        "model": { "@id": "es:FoldRequest/model", "@type": "xsd:string" },
+        "sequence": { "@id": "es:FoldRequest/sequence", "@type": "xsd:string" },
+        "msa": { "@id": "es:FoldRequest/msa", "@container": "@list" },
+        "num_recycles": { "@id": "es:FoldRequest/numRecycles", "@type": "xsd:integer" }
+      }
+    },
+
+    "Model": {
+      "@id": "es:Model",
+      "@context": {
+        "id": { "@id": "es:Model/id", "@type": "xsd:string" },
+        "family": { "@id": "es:Model/family", "@type": "xsd:string" },
+        "parameters": { "@id": "es:Model/parameters", "@type": "xsd:string" },
+        "license": { "@id": "es:Model/license", "@type": "xsd:string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EvolutionaryScale Forge ESM3 — Encoding
+  description: 'EvolutionaryScale Forge ESM3 encoding capability. 4 operations: encode, decode,
+    forward_and_sample, logits. Provides low-level tokenization and sampling control for ESM3.'
+  tags:
+  - EvolutionaryScale
+  - ESM3
+  - Encoding
+  - Tokenization
+  - Logits
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    FORGE_API_TOKEN: FORGE_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: forge-esm3-encoding
+    baseUri: https://forge.evolutionaryscale.ai
+    description: EvolutionaryScale Forge ESM3 encode / decode / forward_and_sample / logits endpoints.
+    resources:
+    - name: api-v1-encode
+      path: /api/v1/encode
+      operations:
+      - name: encode
+        method: POST
+        description: Encode Protein To Tensor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: api-v1-decode
+      path: /api/v1/decode
+      operations:
+      - name: decode
+        method: POST
+        description: Decode Protein Tensor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: api-v1-forward-and-sample
+      path: /api/v1/forward_and_sample
+      operations:
+      - name: forwardandsample
+        method: POST
+        description: Forward And Sample
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: api-v1-logits
+      path: /api/v1/logits
+      operations:
+      - name: logits
+        method: POST
+        description: Get Logits And Embeddings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    authentication:
+      type: bearer
+      value: '{{env.FORGE_API_TOKEN}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: forge-esm3-encoding-rest
+    port: 8080
+    description: REST adapter for ESM3 encoding and sampling endpoints.
+    resources:
+    - path: /api/v1/encode
+      name: api-v1-encode
+      operations:
+      - method: POST
+        name: encode
+        call: forge-esm3-encoding.encode
+        with:
+          body: rest.body
+    - path: /api/v1/decode
+      name: api-v1-decode
+      operations:
+      - method: POST
+        name: decode
+        call: forge-esm3-encoding.decode
+        with:
+          body: rest.body
+    - path: /api/v1/forward_and_sample
+      name: api-v1-forward-and-sample
+      operations:
+      - method: POST
+        name: forwardandsample
+        call: forge-esm3-encoding.forwardandsample
+        with:
+          body: rest.body
+    - path: /api/v1/logits
+      name: api-v1-logits
+      operations:
+      - method: POST
+        name: logits
+        call: forge-esm3-encoding.logits
+        with:
+          body: rest.body
+  - type: mcp
+    namespace: forge-esm3-encoding-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ESM3 encoding and sampling.
+    tools:
+    - name: evolutionaryscale-forge-encode
+      description: Tokenize an ESMProtein into an ESMProteinTensor.
+      hints: { readOnly: true, destructive: false, idempotent: true }
+      call: forge-esm3-encoding.encode
+      with:
+        body: tools.body
+    - name: evolutionaryscale-forge-decode
+      description: Decode an ESMProteinTensor back into an ESMProtein.
+      hints: { readOnly: true, destructive: false, idempotent: true }
+      call: forge-esm3-encoding.decode
+      with:
+        body: tools.body
+    - name: evolutionaryscale-forge-forward-and-sample
+      description: Single forward pass with sampling control.
+      hints: { readOnly: false, destructive: false, idempotent: false }
+      call: forge-esm3-encoding.forwardandsample
+      with:
+        body: tools.body
+    - name: evolutionaryscale-forge-logits
+      description: Retrieve raw logits, embeddings, and hidden states for a tokenized protein.
+      hints: { readOnly: true, destructive: false, idempotent: true }
+      call: forge-esm3-encoding.logits
+      with:
+        body: tools.body

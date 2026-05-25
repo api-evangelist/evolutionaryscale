@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/evolutionaryscale/evolutionaryscale-generation-config-schema.json",
+  "title": "EvolutionaryScale GenerationConfig",
+  "description": "Schema for the `GenerationConfig` object that controls iterative masked sampling for the EvolutionaryScale Forge ESM3 generate endpoint.",
+  "type": "object",
+  "required": ["track"],
+  "properties": {
+    "track": {
+      "type": "string",
+      "description": "Which ESM3 track to generate. Sequence is the most common; structure and function tracks require the multimodal model checkpoints.",
+      "enum": ["sequence", "structure", "secondary_structure", "sasa", "function"]
+    },
+    "num_steps": {
+      "type": "integer",
+      "description": "Number of iterative masked-sampling steps. Lower values are faster; higher values produce more refined outputs.",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 256
+    },
+    "temperature": {
+      "type": "number",
+      "description": "Sampling temperature. 0.0 yields greedy decoding; 1.0 matches the trained distribution; higher values increase diversity.",
+      "default": 1.0,
+      "minimum": 0.0
+    },
+    "top_p": {
+      "type": "number",
+      "description": "Nucleus sampling cutoff. Samples from the smallest set of tokens whose cumulative probability is at least `top_p`.",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "schedule": {
+      "type": "string",
+      "description": "Decoding schedule controlling how many positions are unmasked per step.",
+      "enum": ["cosine", "linear"]
+    },
+    "invalid_ids": {
+      "type": "array",
+      "description": "Token IDs the sampler must never emit. Useful for constraining amino acid alphabets or forbidding rare structure tokens.",
+      "items": { "type": "integer", "minimum": 0 }
+    },
+    "condition_on_coordinates_only": {
+      "type": "boolean",
+      "description": "If true, condition only on coordinates (ignore sequence tokens) when generating other tracks.",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

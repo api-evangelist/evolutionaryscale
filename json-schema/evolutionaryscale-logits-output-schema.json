@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/evolutionaryscale/evolutionaryscale-logits-output-schema.json",
+  "title": "EvolutionaryScale LogitsOutput",
+  "description": "Schema for the `LogitsOutput` returned by the EvolutionaryScale Forge logits endpoints for ESM3 and ESM Cambrian. Provides per-track logits, per-residue embeddings, and optional layer-wise hidden states.",
+  "type": "object",
+  "properties": {
+    "logits": {
+      "type": "object",
+      "description": "Per-track logits keyed by track name. Each value is a [L, V_track] tensor of float logits.",
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "number" } }
+        },
+        "structure": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "number" } }
+        },
+        "secondary_structure": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "number" } }
+        },
+        "sasa": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "number" } }
+        },
+        "function": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "number" } }
+        }
+      }
+    },
+    "embeddings": {
+      "type": "array",
+      "description": "Per-residue embeddings, shape [L, D].",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" }
+      }
+    },
+    "hidden_states": {
+      "type": "array",
+      "description": "Stacked hidden states across selected layers, shape [num_layers, L, D].",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,110 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EvolutionaryScale Forge ESM3 — Generation
+  description: 'EvolutionaryScale Forge ESM3 generation capability. 2 operations: generate and batch_generate.
+    Wraps the hosted ESM3 multimodal protein language model for iterative masked sampling across sequence,
+    structure, secondary structure, SASA, and function tracks.'
+  tags:
+  - EvolutionaryScale
+  - ESM3
+  - Generation
+  - Proteins
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    FORGE_API_TOKEN: FORGE_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: forge-esm3-generation
+    baseUri: https://forge.evolutionaryscale.ai
+    description: EvolutionaryScale Forge ESM3 generation endpoints.
+    resources:
+    - name: api-v1-generate
+      path: /api/v1/generate
+      operations:
+      - name: generate
+        method: POST
+        description: Generate Protein With ESM3
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: GenerateRequest payload (model, protein, config).
+          required: true
+    - name: api-v1-batch-generate
+      path: /api/v1/batch_generate
+      operations:
+      - name: batchgenerate
+        method: POST
+        description: Batch Generate Proteins With ESM3
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: BatchGenerateRequest payload (model, proteins[], configs[]).
+          required: true
+    authentication:
+      type: bearer
+      value: '{{env.FORGE_API_TOKEN}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: forge-esm3-generation-rest
+    port: 8080
+    description: REST adapter for ESM3 generation.
+    resources:
+    - path: /api/v1/generate
+      name: api-v1-generate
+      operations:
+      - method: POST
+        name: generate
+        description: Generate Protein With ESM3
+        call: forge-esm3-generation.generate
+        with:
+          body: rest.body
+    - path: /api/v1/batch_generate
+      name: api-v1-batch-generate
+      operations:
+      - method: POST
+        name: batchgenerate
+        description: Batch Generate Proteins With ESM3
+        call: forge-esm3-generation.batchgenerate
+        with:
+          body: rest.body
+  - type: mcp
+    namespace: forge-esm3-generation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ESM3 generation.
+    tools:
+    - name: evolutionaryscale-forge-generate
+      description: Generate a protein with ESM3 (iterative masked sampling on the configured track).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: forge-esm3-generation.generate
+      with:
+        body: tools.body
+    - name: evolutionaryscale-forge-batch-generate
+      description: Generate multiple proteins concurrently with ESM3.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: forge-esm3-generation.batchgenerate
+      with:
+        body: tools.body

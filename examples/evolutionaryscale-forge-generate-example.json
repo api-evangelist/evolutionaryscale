@@ -1,0 +1,29 @@
+{
+  "request": {
+    "url": "https://forge.evolutionaryscale.ai/api/v1/generate",
+    "method": "POST",
+    "headers": {
+      "authorization": "Bearer <FORGE_API_TOKEN>",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "esm3-medium-2024-08",
+      "protein": {
+        "sequence": "MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT"
+      },
+      "config": {
+        "track": "sequence",
+        "num_steps": 8,
+        "temperature": 1.0
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "sequence": "MKTAYIAKQRQISFVKAHFSRSSERVKKLLVGDIVT",
+      "plddt": null,
+      "ptm": null
+    }
+  }
+}

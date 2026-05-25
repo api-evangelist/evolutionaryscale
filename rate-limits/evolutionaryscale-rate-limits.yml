@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: EvolutionaryScale
+providerId: evolutionaryscale
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - AI
+  - Biology
+  - Rate Limiting
+  - Proteins
+description: >
+  EvolutionaryScale does not publish public rate-limit tables for the Forge API. The `esm` SDK's
+  async clients (`async_generate`, `async_fold`, `batch_generate`, ...) imply server-side concurrency
+  controls and request queueing. Limits are communicated to Forge beta participants individually and
+  may be raised on request. AWS Marketplace deployments inherit AWS quota and instance-level
+  concurrency limits.
+sources:
+  - https://forge.evolutionaryscale.ai
+  - https://github.com/Biohub/esm
+algorithm: undisclosed
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+limits:
+  - tier: Forge Beta
+    model: esm3-small-2024-08
+    rpm: undisclosed
+    notes: Concurrency and request-per-minute caps assigned per beta account.
+  - tier: Forge Beta
+    model: esm3-medium-2024-08
+    rpm: undisclosed
+    notes: Concurrency and request-per-minute caps assigned per beta account.
+  - tier: Forge Beta
+    model: esm3-large-2024-03
+    rpm: undisclosed
+    notes: 98B model — heavier per-request budget; limits set per account.
+  - tier: Forge Beta
+    model: esmc-300m-2024-12
+    rpm: undisclosed
+  - tier: Forge Beta
+    model: esmc-600m-2024-12
+    rpm: undisclosed
+  - tier: Forge Beta
+    model: esmc-6b-2024-12
+    rpm: undisclosed
+  - tier: AWS Marketplace
+    model: any
+    rpm: instance-bound
+    notes: Effective rate limit is the throughput of the SageMaker / BioNeMo / NIM instance type and replica count.
+quotas:
+  - tier: Forge Beta
+    type: tokens-per-day
+    value: undisclosed
+    notes: Token (residue) budgets per account; raised on request.

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "url": "https://forge.evolutionaryscale.ai/api/v1/fold",
+    "method": "POST",
+    "headers": {
+      "authorization": "Bearer <FORGE_API_TOKEN>",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "esm3-medium-2024-08",
+      "sequence": "MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ",
+      "num_recycles": 3
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "sequence": "MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ",
+      "coordinates": [
+        [[12.345, 5.678, 9.012], "...37 atom entries per residue..."]
+      ],
+      "plddt": [82.1, 86.4, 90.0, "..."],
+      "ptm": 0.78
+    }
+  }
+}

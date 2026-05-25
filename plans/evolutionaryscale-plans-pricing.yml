@@ -1,0 +1,87 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: EvolutionaryScale
+providerId: evolutionaryscale
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - AI
+  - Biology
+  - Proteins
+  - Foundation Models
+  - ESM3
+description: >
+  EvolutionaryScale does not publish public per-token list pricing for the Forge API on its website at the
+  time of profiling. Forge access is currently distributed through a closed beta with an invite-based
+  signup at forge.evolutionaryscale.ai; commercial and academic plans are negotiated directly with
+  EvolutionaryScale. AWS Marketplace listings (NVIDIA BioNeMo / SageMaker / NIM) and the Cambrian Inference
+  Clickthrough License Agreement provide the commercial deployment lane. Open-weights checkpoints
+  (ESM3-open 1.4B, ESM C 300M / 600M) are available under research-only licenses on Hugging Face.
+sources:
+  - https://forge.evolutionaryscale.ai
+  - https://github.com/Biohub/esm
+  - https://aws.amazon.com/marketplace/seller-profile?id=seller-iw2nbscescndm
+  - https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+plans:
+  - id: forge-beta
+    name: Forge Beta
+    type: contact-sales
+    description: Invite-based access to the hosted Forge API. Generation, encoding, logits, fold, and inverse-fold endpoints across ESM3 and ESM Cambrian model families. Pricing negotiated per workload.
+    entries:
+      - label: Forge API access
+        name: forge_api_access
+        type: contact-sales
+        metric: requests
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact
+        userMultiplied: false
+  - id: forge-academic
+    name: Forge Academic
+    type: gratis
+    description: Free non-commercial access for academic researchers, subject to application review and the Cambrian Inference Clickthrough License terms.
+    entries:
+      - label: Academic access
+        name: academic_access
+        type: gratis
+        metric: requests
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+  - id: open-weights
+    name: Open Weights (ESM3-open / ESM C)
+    type: gratis
+    description: Open weights for ESM3-open (1.4B) and ESM Cambrian 300M / 600M distributed via Hugging Face under non-commercial research licenses. Run locally or self-host.
+    entries:
+      - label: Hugging Face download
+        name: hf_download
+        type: gratis
+        metric: downloads
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+  - id: aws-sagemaker
+    name: AWS Marketplace (SageMaker / BioNeMo / NIM)
+    type: usage-based
+    description: Deploy ESM3 and ESM C through AWS Marketplace via Amazon SageMaker, AWS HealthOmics, AWS Bedrock, NVIDIA BioNeMo, and the NVIDIA NIM microservice. Billing flows through AWS at AWS instance pricing plus any seller fees.
+    entries:
+      - label: SageMaker inference hours
+        name: sagemaker_inference_hours
+        type: metered
+        metric: instance_hours
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: aws-instance-rate
+        userMultiplied: false

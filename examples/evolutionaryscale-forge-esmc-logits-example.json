@@ -1,0 +1,29 @@
+{
+  "request": {
+    "url": "https://forge.evolutionaryscale.ai/api/v1/esmc/logits",
+    "method": "POST",
+    "headers": {
+      "authorization": "Bearer <FORGE_API_TOKEN>",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "esmc-300m-2024-12",
+      "protein_tensor": {
+        "sequence": [0, 5, 5, 5, 5, 5, 2]
+      },
+      "config": {
+        "sequence": true,
+        "return_embeddings": true
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "logits": {
+        "sequence": [[-2.1, 1.4, "...", 0.3]]
+      },
+      "embeddings": [[0.012, -0.042, "...", 0.103]]
+    }
+  }
+}

@@ -1,0 +1,66 @@
+extends:
+  - spectral:oas
+rules:
+  evolutionaryscale-info-contact:
+    description: Every Forge OpenAPI must declare a contact pointing at forge.evolutionaryscale.ai.
+    given: $.info.contact
+    severity: error
+    then:
+      - field: name
+        function: truthy
+      - field: url
+        function: pattern
+        functionOptions:
+          match: "^https://(forge\\.)?evolutionaryscale\\.ai"
+  evolutionaryscale-server-https:
+    description: Forge servers must use HTTPS at forge.evolutionaryscale.ai.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://forge\\.evolutionaryscale\\.ai"
+  evolutionaryscale-bearer-auth:
+    description: Forge endpoints must use bearer-token security.
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      field: BearerAuth
+      function: truthy
+  evolutionaryscale-operation-id-camel:
+    description: Operation IDs use camelCase (matching the `esm` SDK method names like `batchGenerate`, `inverseFold`).
+    given: $.paths.*[get,post,put,delete,patch].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+  evolutionaryscale-summary-title-case:
+    description: Operation summaries use Title Case.
+    given: $.paths.*[get,post,put,delete,patch].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][A-Za-z0-9]*)( [A-Z0-9][A-Za-z0-9]*)*$"
+  evolutionaryscale-model-enum:
+    description: Endpoints that accept a `model` field should constrain it to the published Forge checkpoints.
+    given: $.components.schemas..properties.model
+    severity: warn
+    then:
+      field: enum
+      function: truthy
+  evolutionaryscale-tag-set:
+    description: Tags should be drawn from the Forge surface taxonomy (Generation, Encoding, Sampling, Embeddings, Structure, MSA).
+    given: $.tags[*].name
+    severity: warn
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - Generation
+          - Encoding
+          - Sampling
+          - Embeddings
+          - Structure
+          - MSA
