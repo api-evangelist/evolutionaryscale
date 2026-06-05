@@ -1,272 +1,267 @@
 aid: evolutionaryscale
 url: https://raw.githubusercontent.com/api-evangelist/evolutionaryscale/refs/heads/main/apis.yml
 apis:
-- aid: evolutionaryscale:forge-esm3-api
-  name: EvolutionaryScale Forge ESM3 API
-  tags:
-  - AI
-  - Biology
-  - Foundation Models
-  - Proteins
-  - ESM3
-  - Generation
-  humanURL: https://forge.evolutionaryscale.ai
-  properties:
-  - url: https://forge.evolutionaryscale.ai
-    type: Documentation
-  - url: https://github.com/Biohub/esm
-    type: SourceCode
-  - url: openapi/evolutionaryscale-forge-esm3-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/evolutionaryscale-esm-protein-schema.json
-    type: JSONSchema
-  - url: json-schema/evolutionaryscale-generation-config-schema.json
-    type: JSONSchema
-  - url: json-ld/evolutionaryscale-context.jsonld
-    type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/forge-esm3-generation.yaml
-  - type: NaftikoCapability
-    url: capabilities/forge-esm3-encoding.yaml
-  description: Hosted inference API for the ESM3 multimodal protein language model. Reasons jointly across
-    sequence, structure, and function tracks. Provides generate, batch_generate, encode, decode,
-    forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter
-    checkpoints. Accessed via the `esm` Python SDK (`pip install esm`) using a bearer token issued by
-    forge.evolutionaryscale.ai. Closed beta with commercial license tiers.
-- aid: evolutionaryscale:forge-esmc-api
-  name: EvolutionaryScale Forge ESM Cambrian API
-  tags:
-  - AI
-  - Biology
-  - Foundation Models
-  - Proteins
-  - ESM Cambrian
-  - Embeddings
-  - Representation Learning
-  humanURL: https://forge.evolutionaryscale.ai
-  properties:
-  - url: https://forge.evolutionaryscale.ai
-    type: Documentation
-  - url: https://github.com/Biohub/esm
-    type: SourceCode
-  - url: openapi/evolutionaryscale-forge-esmc-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/evolutionaryscale-logits-output-schema.json
-    type: JSONSchema
-  - type: NaftikoCapability
-    url: capabilities/forge-esmc-embeddings.yaml
-  description: Hosted inference API for the ESM Cambrian (ESM C) protein representation learning model family.
-    Drop-in replacement for ESM2 offering comparable accuracy at lower memory footprint. Available in 300M,
-    600M, and 6B parameter sizes. Exposes encode and logits operations for generating protein sequence
-    embeddings, hidden states, and per-residue logits for downstream representation tasks.
-- aid: evolutionaryscale:forge-folding-api
-  name: EvolutionaryScale Forge Folding API
-  tags:
-  - AI
-  - Biology
-  - Foundation Models
-  - Proteins
-  - Structure Prediction
-  - Inverse Folding
-  humanURL: https://forge.evolutionaryscale.ai
-  properties:
-  - url: https://forge.evolutionaryscale.ai
-    type: Documentation
-  - url: https://github.com/Biohub/esm
-    type: SourceCode
-  - url: openapi/evolutionaryscale-forge-folding-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/forge-folding-structure.yaml
-  description: Hosted folding and inverse-folding inference endpoints. `fold` predicts protein backbone
-    coordinates plus pLDDT/PTM confidence from an input sequence; `inverse_fold` designs candidate sequences
-    consistent with an input structure. Includes an `msa` endpoint for fetching multiple sequence alignments
-    used to condition predictions.
-- aid: evolutionaryscale:esm-python-sdk
-  name: EvolutionaryScale ESM Python SDK
-  tags:
-  - AI
-  - Biology
-  - SDK
-  - Python
-  - Open Source
-  - ESM3
-  - ESM Cambrian
-  humanURL: https://github.com/Biohub/esm
-  properties:
-  - url: https://github.com/Biohub/esm
-    type: SourceCode
-  - url: https://pypi.org/project/esm/
-    type: SDK
-  - url: https://huggingface.co/biohub/esm3-sm-open-v1
-    type: Documentation
-  - url: https://huggingface.co/biohub/esmc-300m-2024-12
-    type: Documentation
-  - url: https://huggingface.co/biohub/esmc-600m-2024-12
-    type: Documentation
-  - url: https://github.com/Biohub/esm/tree/main/cookbook
-    type: CodeExamples
-  description: Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein`
-    multi-track data model, generation/sampling configurations, structure tokenization utilities, and a
-    `forge.client()` factory that swaps local checkpoints for Forge-hosted inference without code changes.
-    Installable from PyPI as `esm`. Mixed commercial / non-commercial licenses.
+  - aid: evolutionaryscale:forge-esm3-api
+    name: EvolutionaryScale Forge ESM3 API
+    tags:
+      - AI
+      - Biology
+      - Foundation Models
+      - Proteins
+      - ESM3
+      - Generation
+    humanURL: https://forge.evolutionaryscale.ai
+    properties:
+      - url: https://forge.evolutionaryscale.ai
+        type: Documentation
+      - url: https://github.com/Biohub/esm
+        type: SourceCode
+      - url: openapi/evolutionaryscale-forge-esm3-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/evolutionaryscale-esm-protein-schema.json
+        type: JSONSchema
+      - url: json-schema/evolutionaryscale-generation-config-schema.json
+        type: JSONSchema
+      - url: json-ld/evolutionaryscale-context.jsonld
+        type: JSONLD
+    description: >-
+      Hosted inference API for the ESM3 multimodal protein language model. Reasons jointly across sequence, structure,
+      and function tracks. Provides generate, batch_generate, encode, decode, forward_and_sample, and logits operations
+      across small (1.4B), medium (7B), and large (98B) parameter checkpoints. Accessed via the `esm` Python SDK (`pip
+      install esm`) using a bearer token issued by forge.evolutionaryscale.ai. Closed beta with commercial license
+      tiers.
+  - aid: evolutionaryscale:forge-esmc-api
+    name: EvolutionaryScale Forge ESM Cambrian API
+    tags:
+      - AI
+      - Biology
+      - Foundation Models
+      - Proteins
+      - ESM Cambrian
+      - Embeddings
+      - Representation Learning
+    humanURL: https://forge.evolutionaryscale.ai
+    properties:
+      - url: https://forge.evolutionaryscale.ai
+        type: Documentation
+      - url: https://github.com/Biohub/esm
+        type: SourceCode
+      - url: openapi/evolutionaryscale-forge-esmc-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/evolutionaryscale-logits-output-schema.json
+        type: JSONSchema
+    description: >-
+      Hosted inference API for the ESM Cambrian (ESM C) protein representation learning model family. Drop-in
+      replacement for ESM2 offering comparable accuracy at lower memory footprint. Available in 300M, 600M, and 6B
+      parameter sizes. Exposes encode and logits operations for generating protein sequence embeddings, hidden states,
+      and per-residue logits for downstream representation tasks.
+  - aid: evolutionaryscale:forge-folding-api
+    name: EvolutionaryScale Forge Folding API
+    tags:
+      - AI
+      - Biology
+      - Foundation Models
+      - Proteins
+      - Structure Prediction
+      - Inverse Folding
+    humanURL: https://forge.evolutionaryscale.ai
+    properties:
+      - url: https://forge.evolutionaryscale.ai
+        type: Documentation
+      - url: https://github.com/Biohub/esm
+        type: SourceCode
+      - url: openapi/evolutionaryscale-forge-folding-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Hosted folding and inverse-folding inference endpoints. `fold` predicts protein backbone coordinates plus
+      pLDDT/PTM confidence from an input sequence; `inverse_fold` designs candidate sequences consistent with an input
+      structure. Includes an `msa` endpoint for fetching multiple sequence alignments used to condition predictions.
+  - aid: evolutionaryscale:esm-python-sdk
+    name: EvolutionaryScale ESM Python SDK
+    tags:
+      - AI
+      - Biology
+      - SDK
+      - Python
+      - Open Source
+      - ESM3
+      - ESM Cambrian
+    humanURL: https://github.com/Biohub/esm
+    properties:
+      - url: https://github.com/Biohub/esm
+        type: SourceCode
+      - url: https://pypi.org/project/esm/
+        type: SDK
+      - url: https://huggingface.co/biohub/esm3-sm-open-v1
+        type: Documentation
+      - url: https://huggingface.co/biohub/esmc-300m-2024-12
+        type: Documentation
+      - url: https://huggingface.co/biohub/esmc-600m-2024-12
+        type: Documentation
+      - url: https://github.com/Biohub/esm/tree/main/cookbook
+        type: CodeExamples
+    description: >-
+      Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein` multi-track data model,
+      generation/sampling configurations, structure tokenization utilities, and a `forge.client()` factory that swaps
+      local checkpoints for Forge-hosted inference without code changes. Installable from PyPI as `esm`. Mixed
+      commercial / non-commercial licenses.
 name: EvolutionaryScale
 tags:
-- AI
-- Artificial Intelligence
-- Biology
-- Bioinformatics
-- Computational Biology
-- Drug Discovery
-- ESM
-- ESM3
-- ESM Cambrian
-- Foundation Models
-- Generative Biology
-- Life Sciences
-- Machine Learning
-- Protein Design
-- Protein Folding
-- Protein Language Models
-- Proteins
-- Representation Learning
-- Structure Prediction
+  - AI
+  - Artificial Intelligence
+  - Biology
+  - Bioinformatics
+  - Computational Biology
+  - Drug Discovery
+  - ESM
+  - ESM3
+  - ESM Cambrian
+  - Foundation Models
+  - Generative Biology
+  - Life Sciences
+  - Machine Learning
+  - Protein Design
+  - Protein Folding
+  - Protein Language Models
+  - Proteins
+  - Representation Learning
+  - Structure Prediction
 commonProperties:
-- url: https://www.evolutionaryscale.ai
-  type: Portal
-- url: https://forge.evolutionaryscale.ai
-  name: EvolutionaryScale Forge
-  type: SignUp
-- url: https://github.com/Biohub/esm
-  name: ESM SDK on GitHub
-  type: SourceCode
-- url: https://pypi.org/project/esm/
-  name: esm package on PyPI
-  type: SDK
-- url: https://huggingface.co/biohub
-  name: Biohub on Hugging Face
-  type: Documentation
-- url: https://huggingface.co/biohub/esm3-sm-open-v1
-  name: ESM3-open (1.4B) on Hugging Face
-  type: Models
-- url: https://huggingface.co/biohub/esmc-300m-2024-12
-  name: ESM C 300M on Hugging Face
-  type: Models
-- url: https://huggingface.co/biohub/esmc-600m-2024-12
-  name: ESM C 600M on Hugging Face
-  type: Models
-- url: https://github.com/Biohub/esm/tree/main/cookbook
-  name: ESM Cookbook
-  type: CodeExamples
-- url: https://github.com/Biohub/esm/tree/main/cookbook/tutorials
-  name: ESM Tutorials
-  type: Tutorials
-- url: https://www.science.org/doi/10.1126/science.ads0018
-  name: ESM3 — Science paper (Hayes et al. 2025)
-  type: Documentation
-- url: https://www.evolutionaryscale.ai/blog/esm3-release
-  name: ESM3 release announcement
-  type: Blog
-- url: https://www.evolutionaryscale.ai/blog/esm-cambrian
-  name: ESM Cambrian announcement
-  type: Blog
-- url: https://www.evolutionaryscale.ai/blog
-  type: Blog
-- url: https://aws.amazon.com/marketplace/seller-profile?id=seller-iw2nbscescndm
-  name: EvolutionaryScale on AWS Marketplace (SageMaker)
-  type: Marketplace
-- url: https://github.com/evolutionaryscale/esm-sagemaker
-  name: ESM on Amazon SageMaker examples
-  type: CodeExamples
-- url: https://github.com/evolutionaryscale/esm-partner
-  name: Partner integrations
-  type: CodeExamples
-- url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
-  name: Cambrian Inference Clickthrough License Agreement
-  type: TermsOfService
-- url: https://responsiblebiodesign.ai
-  name: Responsible Biodesign Framework
-  type: Documentation
-- url: https://bit.ly/esm-slack
-  name: ESM Community Slack
-  type: Forum
-- url: https://github.com/evolutionaryscale
-  type: GitHubOrganization
-- url: https://github.com/Biohub
-  name: Biohub GitHub Organization (ESM home)
-  type: GitHubOrganization
-- url: plans/evolutionaryscale-plans-pricing.yml
-  type: Plans
-- url: rate-limits/evolutionaryscale-rate-limits.yml
-  type: RateLimits
-- url: finops/evolutionaryscale-finops.yml
-  type: FinOps
-- url: vocabulary/evolutionaryscale-vocabulary.yml
-  type: Vocabulary
-- type: Models
-  data:
-  - name: esm3-large-2024-03
-    parameters: 98B
-    description: Largest ESM3 checkpoint, trained on 771B tokens from 2.78B natural proteins; 1e24 FLOPs.
-  - name: esm3-medium-2024-08
-    parameters: 7B
-    description: Mid-size ESM3 checkpoint suitable for most Forge inference workloads.
-  - name: esm3-small-2024-08
-    parameters: 1.4B
-    description: Small ESM3 checkpoint; open weights as esm3-sm-open-v1 (non-commercial use).
-  - name: esm3-open
-    parameters: 1.4B
-    description: Open weights of esm3-small (biohub/esm3-sm-open-v1 on Hugging Face).
-  - name: esmc-6b-2024-12
-    parameters: 6B
-    description: Largest ESM Cambrian representation model.
-  - name: esmc-600m-2024-12
-    parameters: 600M
-    description: Mid-size ESM Cambrian representation model.
-  - name: esmc-300m-2024-12
-    parameters: 300M
-    description: Small ESM Cambrian model; ESM2 650M-class quality with reduced memory footprint.
-- type: Features
-  data:
-  - ESM3 — multimodal generative model jointly conditioning on protein sequence, structure, and function
-  - 98B-parameter ESM3 trained on 771B tokens from 2.78B natural proteins (1e24 FLOPs)
-  - ESM Cambrian (ESM C) representation models at 300M, 600M, and 6B parameters
-  - Forge API providing generate, batch_generate, encode, decode, forward_and_sample, and logits operations
-  - Fold and inverse-fold endpoints for structure prediction and structure-conditioned sequence design
-  - MSA endpoint for fetching multiple sequence alignments used by structure prediction
-  - Iterative masked sampling with configurable num_steps, temperature, top_p, and decoding schedules
-  - Per-track generation across sequence, structure, secondary_structure, sasa, and function tracks
-  - Structure tokenizer converting PDB / atom37 coordinates to and from discrete tokens
-  - ESMProtein and ESMProteinTensor data model unifying raw and tokenized representations
-  - Async/sync client surface (`async_generate`, `async_fold`, `async_encode`, ...) for high-throughput jobs
-  - Drop-in Forge client (`esm.sdk.client(model, token=...)`) replaces local checkpoints with hosted inference
-  - Open-weights ESM3-open (1.4B) and ESM Cambrian distributions on Hugging Face under research license
-  - AWS Marketplace deployment via SageMaker, NVIDIA BioNeMo, and NVIDIA NIM microservice
-  - Cookbook tutorials covering protein generation, embedding workflows, and esmGFP-style design
-  - Responsible Biodesign Framework governing model release and biosecurity review
-  sources:
-  - https://www.evolutionaryscale.ai
-  - https://github.com/Biohub/esm
-  - https://forge.evolutionaryscale.ai
-  - https://www.science.org/doi/10.1126/science.ads0018
-  - https://www.evolutionaryscale.ai/blog/esm3-release
-  - https://www.evolutionaryscale.ai/blog/esm-cambrian
-  updated: '2026-05-24'
+  - url: https://www.evolutionaryscale.ai
+    type: Portal
+  - url: https://forge.evolutionaryscale.ai
+    name: EvolutionaryScale Forge
+    type: SignUp
+  - url: https://github.com/Biohub/esm
+    name: ESM SDK on GitHub
+    type: SourceCode
+  - url: https://pypi.org/project/esm/
+    name: esm package on PyPI
+    type: SDK
+  - url: https://huggingface.co/biohub
+    name: Biohub on Hugging Face
+    type: Documentation
+  - url: https://huggingface.co/biohub/esm3-sm-open-v1
+    name: ESM3-open (1.4B) on Hugging Face
+    type: Models
+  - url: https://huggingface.co/biohub/esmc-300m-2024-12
+    name: ESM C 300M on Hugging Face
+    type: Models
+  - url: https://huggingface.co/biohub/esmc-600m-2024-12
+    name: ESM C 600M on Hugging Face
+    type: Models
+  - url: https://github.com/Biohub/esm/tree/main/cookbook
+    name: ESM Cookbook
+    type: CodeExamples
+  - url: https://github.com/Biohub/esm/tree/main/cookbook/tutorials
+    name: ESM Tutorials
+    type: Tutorials
+  - url: https://www.science.org/doi/10.1126/science.ads0018
+    name: ESM3 — Science paper (Hayes et al. 2025)
+    type: Documentation
+  - url: https://www.evolutionaryscale.ai/blog/esm3-release
+    name: ESM3 release announcement
+    type: Blog
+  - url: https://www.evolutionaryscale.ai/blog/esm-cambrian
+    name: ESM Cambrian announcement
+    type: Blog
+  - url: https://www.evolutionaryscale.ai/blog
+    type: Blog
+  - url: https://aws.amazon.com/marketplace/seller-profile?id=seller-iw2nbscescndm
+    name: EvolutionaryScale on AWS Marketplace (SageMaker)
+    type: Marketplace
+  - url: https://github.com/evolutionaryscale/esm-sagemaker
+    name: ESM on Amazon SageMaker examples
+    type: CodeExamples
+  - url: https://github.com/evolutionaryscale/esm-partner
+    name: Partner integrations
+    type: CodeExamples
+  - url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+    name: Cambrian Inference Clickthrough License Agreement
+    type: TermsOfService
+  - url: https://responsiblebiodesign.ai
+    name: Responsible Biodesign Framework
+    type: Documentation
+  - url: https://bit.ly/esm-slack
+    name: ESM Community Slack
+    type: Forum
+  - url: https://github.com/evolutionaryscale
+    type: GitHubOrganization
+  - url: https://github.com/Biohub
+    name: Biohub GitHub Organization (ESM home)
+    type: GitHubOrganization
+  - url: plans/evolutionaryscale-plans-pricing.yml
+    type: Plans
+  - url: rate-limits/evolutionaryscale-rate-limits.yml
+    type: RateLimits
+  - url: finops/evolutionaryscale-finops.yml
+    type: FinOps
+  - url: vocabulary/evolutionaryscale-vocabulary.yml
+    type: Vocabulary
+  - type: Models
+    data:
+      - name: esm3-large-2024-03
+        parameters: 98B
+        description: Largest ESM3 checkpoint, trained on 771B tokens from 2.78B natural proteins; 1e24 FLOPs.
+      - name: esm3-medium-2024-08
+        parameters: 7B
+        description: Mid-size ESM3 checkpoint suitable for most Forge inference workloads.
+      - name: esm3-small-2024-08
+        parameters: 1.4B
+        description: Small ESM3 checkpoint; open weights as esm3-sm-open-v1 (non-commercial use).
+      - name: esm3-open
+        parameters: 1.4B
+        description: Open weights of esm3-small (biohub/esm3-sm-open-v1 on Hugging Face).
+      - name: esmc-6b-2024-12
+        parameters: 6B
+        description: Largest ESM Cambrian representation model.
+      - name: esmc-600m-2024-12
+        parameters: 600M
+        description: Mid-size ESM Cambrian representation model.
+      - name: esmc-300m-2024-12
+        parameters: 300M
+        description: Small ESM Cambrian model; ESM2 650M-class quality with reduced memory footprint.
+  - type: Features
+    data:
+      - ESM3 — multimodal generative model jointly conditioning on protein sequence, structure, and function
+      - 98B-parameter ESM3 trained on 771B tokens from 2.78B natural proteins (1e24 FLOPs)
+      - ESM Cambrian (ESM C) representation models at 300M, 600M, and 6B parameters
+      - Forge API providing generate, batch_generate, encode, decode, forward_and_sample, and logits operations
+      - Fold and inverse-fold endpoints for structure prediction and structure-conditioned sequence design
+      - MSA endpoint for fetching multiple sequence alignments used by structure prediction
+      - Iterative masked sampling with configurable num_steps, temperature, top_p, and decoding schedules
+      - Per-track generation across sequence, structure, secondary_structure, sasa, and function tracks
+      - Structure tokenizer converting PDB / atom37 coordinates to and from discrete tokens
+      - ESMProtein and ESMProteinTensor data model unifying raw and tokenized representations
+      - Async/sync client surface (`async_generate`, `async_fold`, `async_encode`, ...) for high-throughput jobs
+      - Drop-in Forge client (`esm.sdk.client(model, token=...)`) replaces local checkpoints with hosted inference
+      - Open-weights ESM3-open (1.4B) and ESM Cambrian distributions on Hugging Face under research license
+      - AWS Marketplace deployment via SageMaker, NVIDIA BioNeMo, and NVIDIA NIM microservice
+      - Cookbook tutorials covering protein generation, embedding workflows, and esmGFP-style design
+      - Responsible Biodesign Framework governing model release and biosecurity review
+    sources:
+      - https://www.evolutionaryscale.ai
+      - https://github.com/Biohub/esm
+      - https://forge.evolutionaryscale.ai
+      - https://www.science.org/doi/10.1126/science.ads0018
+      - https://www.evolutionaryscale.ai/blog/esm3-release
+      - https://www.evolutionaryscale.ai/blog/esm-cambrian
+    updated: '2026-05-24'
 created: '2026-05-24'
 modified: '2026-05-24'
 position: Consuming
-description: EvolutionaryScale is a New York-based biology foundation model lab spun out of Meta AI's
-  ESM team that develops AI to deepen scientific understanding of biology. Its flagship ESM3 model is a
-  multimodal generative protein language model that reasons jointly across sequence, structure, and
-  function, scaling to 98B parameters trained on 771B tokens from 2.78B natural proteins. The companion
-  ESM Cambrian (ESM C) family provides protein representation learning at 300M–6B parameters as a
-  performant ESM2 replacement. Models are accessible via the hosted Forge inference API
-  (forge.evolutionaryscale.ai), an open-source Python SDK (`pip install esm`), open weights on Hugging
-  Face, and AWS Marketplace (SageMaker, NVIDIA BioNeMo and NIM). EvolutionaryScale was integrated into
-  the Biohub organization in 2025; the ESM SDK now lives at github.com/Biohub/esm.
+description: >-
+  EvolutionaryScale is a New York-based biology foundation model lab spun out of Meta AI's ESM team that develops AI to
+  deepen scientific understanding of biology. Its flagship ESM3 model is a multimodal generative protein language model
+  that reasons jointly across sequence, structure, and function, scaling to 98B parameters trained on 771B tokens from
+  2.78B natural proteins. The companion ESM Cambrian (ESM C) family provides protein representation learning at 300M–6B
+  parameters as a performant ESM2 replacement. Models are accessible via the hosted Forge inference API
+  (forge.evolutionaryscale.ai), an open-source Python SDK (`pip install esm`), open weights on Hugging Face, and AWS
+  Marketplace (SageMaker, NVIDIA BioNeMo and NIM). EvolutionaryScale was integrated into the Biohub organization in
+  2025; the ESM SDK now lives at github.com/Biohub/esm.
 maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
-  X: apievangelist
-  url: https://apievangelist.com
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com
 specificationVersion: '0.16'
