@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 API",
+    "version": "Wed Jul 31 2024 20:00:00 GMT-0400 (Eastern Daylight Time)"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Protein With ESM3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Iteratively samples tokens on the requested track of an `ESMProtein` input, filling in masked positions until the track is complete. Wraps encode, iterative sampling, and decode in a single call. Returns a fully populated `ESMProtein`.\n"
+        },
+        {
+          "info": {
+            "name": "Batch Generate Proteins With ESM3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/batch_generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate multiple proteins concurrently using a list of `ESMProtein` inputs and a parallel list of `GenerationConfig` objects. Returns a list of completed `ESMProtein` results in the same order.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Encoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Encode Protein To Tensor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/encode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert an `ESMProtein` into an `ESMProteinTensor` representation by running the structure tokenizer (and other per-track tokenizers) over the input. The tensor representation is required for low-level forward_and_sample and logits operations.\n"
+        },
+        {
+          "info": {
+            "name": "Decode Protein Tensor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/decode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inverse of encode. Runs the structure token decoder to convert an `ESMProteinTensor` back into an `ESMProtein` with sequence and atom coordinates.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sampling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Forward And Sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/forward_and_sample",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a single forward pass of ESM3 against a tokenized protein and samples tokens according to a `SamplingConfig`. Intended for power users who need fine-grained control over each iteration (for example, chain-of-thought protein design or custom sampling schedules).\n"
+        },
+        {
+          "info": {
+            "name": "Get Logits And Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/logits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns raw per-position logits, embeddings, and optional hidden states for a tokenized protein. The SDK discourages routine use because logits payloads are large; prefer encode + forward_and_sample for typical workflows.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

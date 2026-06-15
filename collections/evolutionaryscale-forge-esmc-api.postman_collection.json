@@ -1,0 +1,370 @@
+{
+  "item": [
+    {
+      "id": "9db54876-b5ba-4e46-843d-c4bee9c48e9d",
+      "name": "Embeddings",
+      "description": {
+        "content": "Sequence-only tokenization and representation extraction.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f94adb6f-431d-47f4-b3b1-6833b179757e",
+          "name": "Encode Protein Sequence With ESM C",
+          "request": {
+            "name": "Encode Protein Sequence With ESM C",
+            "description": {
+              "content": "Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "esmc",
+                "encode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein\": {\n    \"sequence\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d46e5eaf-7143-4af8-ba66-1ed8091998cb",
+              "name": "Sequence tensor for the supplied protein.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "encode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein\": {\n    \"sequence\": \"AAAAA\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequence\": [\n    1839,\n    8173\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3e82af4-c91d-43ea-af9f-4d80e502b0dd",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "encode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein\": {\n    \"sequence\": \"AAAAA\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b2f57e30-9aed-403f-ac25-6ad99940ed61",
+      "name": "Sampling",
+      "description": {
+        "content": "Per-residue logits and hidden state retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "acaf4d8f-7564-4ee9-ac5a-68a4f912f900",
+          "name": "Get ESM C Logits And Embeddings",
+          "request": {
+            "name": "Get ESM C Logits And Embeddings",
+            "description": {
+              "content": "Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "esmc",
+                "logits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "870bec4d-1606-4347-a54a-eb3cc98c8e18",
+              "name": "Logits and embedding output.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      2059,\n      8627\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logits\": {\n    \"sequence\": [\n      [\n        5251.645903338043,\n        5020.924555580334\n      ],\n      [\n        2320.525561261928,\n        3062.831352061951\n      ]\n    ]\n  },\n  \"embeddings\": [\n    [\n      5071.019373856479,\n      4426.44917648768\n    ],\n    [\n      4700.095129010424,\n      5052.371078268775\n    ]\n  ],\n  \"hidden_states\": [\n    [\n      [\n        8695.331605787971,\n        7436.533290856607\n      ],\n      [\n        6185.117808230512,\n        260.9464188275401\n      ]\n    ],\n    [\n      [\n        3511.8466568774375,\n        7716.337178117661\n      ],\n      [\n        9831.922605409214,\n        7527.192527963981\n      ]\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1a5167c-077f-4ae6-b902-3d94328f8f41",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      2059,\n      8627\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://forge.evolutionaryscale.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e4cedccb-5153-4967-8cdd-e4ca1fb32b46",
+    "name": "EvolutionaryScale Forge ESM Cambrian API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted inference API for the ESM Cambrian (ESM C) protein representation learning family. ESM C is a drop-in replacement for ESM2 with comparable or better accuracy at substantially reduced memory footprint. Provides encode and logits operations for sequence embedding workflows. Available in 300M, 600M, and 6B parameter checkpoints.\n\n\nContact Support:\n Name: EvolutionaryScale Forge",
+      "type": "text/plain"
+    }
+  }
+}

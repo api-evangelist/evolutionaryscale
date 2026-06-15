@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM Cambrian API",
+    "version": "Sat Nov 30 2024 19:00:00 GMT-0500 (Eastern Standard Time)"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Encode Protein Sequence With ESM C",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/esmc/encode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sampling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ESM C Logits And Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/esmc/logits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

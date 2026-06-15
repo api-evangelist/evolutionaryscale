@@ -1,0 +1,520 @@
+{
+  "item": [
+    {
+      "id": "bbfc42e2-2fac-4d0a-a69f-4954f89b5122",
+      "name": "Structure",
+      "description": {
+        "content": "Predict protein backbone coordinates from sequence and back.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81a01eab-a18d-4930-8fc5-e41d8181ab0c",
+          "name": "Fold Sequence To Structure",
+          "request": {
+            "name": "Fold Sequence To Structure",
+            "description": {
+              "content": "Predict atom37 backbone coordinates, per-residue pLDDT confidence, and predicted TM-score (PTM) for an input amino acid sequence. Returns a full `ESMProtein` with `coordinates`, `plddt`, and `ptm` populated.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "fold"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sequence\": \"<string>\",\n  \"model\": \"<string>\",\n  \"msa\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"num_recycles\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "520a97ad-fd2e-427d-95eb-ebba3323928e",
+              "name": "Predicted structure with confidence scores.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fold"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"sequence\": \"MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ\",\n  \"num_recycles\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequence\": \"string\",\n  \"coordinates\": [\n    [\n      [\n        1819.1336351576172,\n        1181.7508295395608\n      ],\n      [\n        4599.392907319259,\n        6101.540134127286\n      ]\n    ],\n    [\n      [\n        4184.036708699757,\n        8751.919848582776\n      ],\n      [\n        4128.406111431035,\n        6202.635951746956\n      ]\n    ]\n  ],\n  \"plddt\": [\n    5582.964669058629,\n    2271.25170272381\n  ],\n  \"ptm\": 6422.324295103329\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f7c0425-7b1b-4243-a1b7-320de5a6b93c",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "fold"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"sequence\": \"MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ\",\n  \"num_recycles\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2dc9486-3252-4db9-bac6-96751e4fe733",
+          "name": "Inverse Fold Structure To Sequence",
+          "request": {
+            "name": "Inverse Fold Structure To Sequence",
+            "description": {
+              "content": "Generate one or more candidate amino acid sequences that fold to the provided structure. Accepts atom37 coordinates plus optional per-residue temperature controls.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "inverse_fold"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"model\": \"<string>\",\n  \"temperature\": 1,\n  \"num_samples\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0be7a250-f74a-451a-9c87-09f0bc4febf3",
+              "name": "Candidate sequences.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "inverse_fold"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        190.48777122547156,\n        9864.56311813572\n      ],\n      [\n        6804.055781454594,\n        2462.3786451894757\n      ]\n    ],\n    [\n      [\n        1119.7323756043309,\n        5424.003066533015\n      ],\n      [\n        3760.9169979706203,\n        6592.0794589460775\n      ]\n    ]\n  ],\n  \"model\": \"esm3-medium-2024-08\",\n  \"temperature\": 1,\n  \"num_samples\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequences\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f0da839-9033-491e-a6df-35a2e44e4587",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "inverse_fold"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        190.48777122547156,\n        9864.56311813572\n      ],\n      [\n        6804.055781454594,\n        2462.3786451894757\n      ]\n    ],\n    [\n      [\n        1119.7323756043309,\n        5424.003066533015\n      ],\n      [\n        3760.9169979706203,\n        6592.0794589460775\n      ]\n    ]\n  ],\n  \"model\": \"esm3-medium-2024-08\",\n  \"temperature\": 1,\n  \"num_samples\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b44d740d-420f-4b58-a4e8-6214dcbbab7f",
+      "name": "MSA",
+      "description": {
+        "content": "Fetch multiple sequence alignments used by structure predictors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b56ff8f3-821a-418f-92b1-8a5aac7b1631",
+          "name": "Fetch Multiple Sequence Alignment",
+          "request": {
+            "name": "Fetch Multiple Sequence Alignment",
+            "description": {
+              "content": "Fetch a multiple sequence alignment (MSA) for the input sequence. The MSA can be passed into subsequent fold calls to improve accuracy.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "msa"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sequence\": \"<string>\",\n  \"max_depth\": 256\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b8db19c-b551-4532-9815-f4b94da54b5f",
+              "name": "MSA returned in A3M format and as a parsed list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "msa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sequence\": \"MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ\",\n  \"max_depth\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"a3m\": \"string\",\n  \"sequences\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "274ba237-467d-48bf-983f-ff566848a044",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "msa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sequence\": \"MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ\",\n  \"max_depth\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://forge.evolutionaryscale.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "baaf238a-7088-4a8f-8d76-a0f339c46e53",
+    "name": "EvolutionaryScale Forge Folding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted folding and inverse-folding inference for protein structure tasks. `fold` predicts protein backbone coordinates plus pLDDT and PTM confidence from an amino acid sequence; `inverse_fold` designs candidate sequences consistent with a target structure. An `msa` endpoint fetches multiple sequence alignments that condition fold predictions for improved accuracy.\n\n\nContact Support:\n Name: EvolutionaryScale Forge",
+      "type": "text/plain"
+    }
+  }
+}
