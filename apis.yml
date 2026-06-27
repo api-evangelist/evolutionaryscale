@@ -91,7 +91,7 @@ apis:
       - url: https://github.com/Biohub/esm
         type: SourceCode
       - url: https://pypi.org/project/esm/
-        type: SDK
+        type: SDKs
       - url: https://huggingface.co/biohub/esm3-sm-open-v1
         type: Documentation
       - url: https://huggingface.co/biohub/esmc-300m-2024-12
@@ -131,13 +131,13 @@ commonProperties:
     type: Portal
   - url: https://forge.evolutionaryscale.ai
     name: EvolutionaryScale Forge
-    type: SignUp
+    type: Signup
   - url: https://github.com/Biohub/esm
     name: ESM SDK on GitHub
     type: SourceCode
   - url: https://pypi.org/project/esm/
     name: esm package on PyPI
-    type: SDK
+    type: SDKs
   - url: https://huggingface.co/biohub
     name: Biohub on Hugging Face
     type: Documentation
@@ -184,7 +184,7 @@ commonProperties:
     type: Documentation
   - url: https://bit.ly/esm-slack
     name: ESM Community Slack
-    type: Forum
+    type: Forums
   - url: https://github.com/evolutionaryscale
     type: GitHubOrganization
   - url: https://github.com/Biohub
