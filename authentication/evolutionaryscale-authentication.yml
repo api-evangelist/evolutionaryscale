@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/evolutionaryscale-forge-esm3-api-openapi.yml, openapi/evolutionaryscale-forge-esmc-api-openapi.yml,
+  openapi/evolutionaryscale-forge-folding-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: Forge API token issued via forge.evolutionaryscale.ai.
+  sources:
+  - openapi/evolutionaryscale-forge-esm3-api-openapi.yml
+  - openapi/evolutionaryscale-forge-esmc-api-openapi.yml
+  - openapi/evolutionaryscale-forge-folding-api-openapi.yml

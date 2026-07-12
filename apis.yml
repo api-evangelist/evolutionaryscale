@@ -265,3 +265,8 @@ maintainers:
     X: apievangelist
     url: https://apievangelist.com
 specificationVersion: '0.16'
+common:
+- type: DomainSecurity
+  url: security/evolutionaryscale-domain-security.yml
+- type: Authentication
+  url: authentication/evolutionaryscale-authentication.yml
