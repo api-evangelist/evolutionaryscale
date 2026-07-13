@@ -2,11 +2,24 @@
   "repo": "evolutionaryscale",
   "feeds": [
     {
-      "source": "https://www.evolutionaryscale.ai/blog",
+      "source": "https://www.evolutionaryscale.ai/blog/esm3-release",
+      "feed_url": "https://www.evolutionaryscale.ai/blog/esm3-release",
+      "title": "",
       "saved": 0,
-      "error": "404 Not Found on blog listing page"
+      "method": "none"
+    },
+    {
+      "source": "https://www.evolutionaryscale.ai/blog/esm-cambrian",
+      "feed_url": "https://www.evolutionaryscale.ai/blog/esm-cambrian",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://www.evolutionaryscale.ai/blog",
+      "error": "HTTPError"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-27T12:40:47Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
