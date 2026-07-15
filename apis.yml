@@ -266,6 +266,8 @@ maintainers:
     url: https://apievangelist.com
 specificationVersion: '0.16'
 common:
+- type: AgenticAccess
+  url: agentic-access/evolutionaryscale-agentic-access.yml
 - type: DomainSecurity
   url: security/evolutionaryscale-domain-security.yml
 - type: Authentication
