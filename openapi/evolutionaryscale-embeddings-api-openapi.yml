@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM3 Embeddings API
+  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
+
+    '
+  version: 2024-08-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+- url: https://forge.evolutionaryscale.ai
+  description: EvolutionaryScale Forge Production
+security:
+- BearerAuth: []
+tags:
+- name: Embeddings
+  description: Sequence-only tokenization and representation extraction.
+paths:
+  /api/v1/esmc/encode:
+    post:
+      summary: Encode Protein Sequence With ESM C
+      description: 'Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.
+
+        '
+      operationId: esmcEncode
+      tags:
+      - Embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESMCEncodeRequest'
+            examples:
+              SimpleEncode:
+                $ref: '#/components/examples/SimpleEncodeExample'
+      responses:
+        '200':
+          description: Sequence tensor for the supplied protein.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProteinTensor'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    ESMCEncodeRequest:
+      type: object
+      required:
+      - model
+      - protein
+      properties:
+        model:
+          type: string
+          example: esmc-300m-2024-12
+          enum:
+          - esmc-300m-2024-12
+          - esmc-600m-2024-12
+          - esmc-6b-2024-12
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    ESMProtein:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+    ESMProteinTensor:
+      type: object
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+  examples:
+    SimpleEncodeExample:
+      summary: Encode a short protein sequence
+      value:
+        model: esmc-300m-2024-12
+        protein:
+          sequence: AAAAA
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.

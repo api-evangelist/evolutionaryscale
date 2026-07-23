@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM3 Embeddings MSA API
+  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
+
+    '
+  version: 2024-08-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+- url: https://forge.evolutionaryscale.ai
+  description: EvolutionaryScale Forge Production
+security:
+- BearerAuth: []
+tags:
+- name: MSA
+  description: Fetch multiple sequence alignments used by structure predictors.
+paths:
+  /api/v1/msa:
+    post:
+      summary: Fetch Multiple Sequence Alignment
+      description: 'Fetch a multiple sequence alignment (MSA) for the input sequence. The MSA can be passed into subsequent fold calls to improve accuracy.
+
+        '
+      operationId: msa
+      tags:
+      - MSA
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MSARequest'
+      responses:
+        '200':
+          description: MSA returned in A3M format and as a parsed list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MSAResponse'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    MSARequest:
+      type: object
+      required:
+      - sequence
+      properties:
+        sequence:
+          type: string
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        max_depth:
+          type: integer
+          default: 256
+    MSAResponse:
+      type: object
+      properties:
+        a3m:
+          type: string
+          description: MSA in A3M format.
+        sequences:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.

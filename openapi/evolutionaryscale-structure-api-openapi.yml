@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM3 Embeddings Structure API
+  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
+
+    '
+  version: 2024-08-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+- url: https://forge.evolutionaryscale.ai
+  description: EvolutionaryScale Forge Production
+security:
+- BearerAuth: []
+tags:
+- name: Structure
+  description: Predict protein backbone coordinates from sequence and back.
+paths:
+  /api/v1/fold:
+    post:
+      summary: Fold Sequence To Structure
+      description: 'Predict atom37 backbone coordinates, per-residue pLDDT confidence, and predicted TM-score (PTM) for an input amino acid sequence. Returns a full `ESMProtein` with `coordinates`, `plddt`, and `ptm` populated.
+
+        '
+      operationId: fold
+      tags:
+      - Structure
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoldRequest'
+            examples:
+              SimpleFold:
+                $ref: '#/components/examples/SimpleFoldExample'
+      responses:
+        '200':
+          description: Predicted structure with confidence scores.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoldResponse'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/inverse_fold:
+    post:
+      summary: Inverse Fold Structure To Sequence
+      description: 'Generate one or more candidate amino acid sequences that fold to the provided structure. Accepts atom37 coordinates plus optional per-residue temperature controls.
+
+        '
+      operationId: inverseFold
+      tags:
+      - Structure
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InverseFoldRequest'
+      responses:
+        '200':
+          description: Candidate sequences.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InverseFoldResponse'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Coordinates:
+      type: array
+      description: Per-residue atom37 coordinates, shape [L, 37, 3].
+      items:
+        type: array
+        items:
+          type: array
+          items:
+            type: number
+    FoldResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        plddt:
+          type: array
+          items:
+            type: number
+        ptm:
+          type: number
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    FoldRequest:
+      type: object
+      required:
+      - sequence
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        msa:
+          type: array
+          description: Optional MSA in A3M format to condition the fold.
+          items:
+            type: string
+        num_recycles:
+          type: integer
+          default: 3
+          minimum: 0
+    InverseFoldRequest:
+      type: object
+      required:
+      - coordinates
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        temperature:
+          type: number
+          default: 1.0
+          minimum: 0.0
+        num_samples:
+          type: integer
+          default: 1
+          minimum: 1
+    InverseFoldResponse:
+      type: object
+      properties:
+        sequences:
+          type: array
+          items:
+            type: string
+  examples:
+    SimpleFoldExample:
+      summary: Fold a short sequence
+      value:
+        model: esm3-medium-2024-08
+        sequence: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        num_recycles: 3
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.

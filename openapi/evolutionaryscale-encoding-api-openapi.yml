@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM3 Embeddings Encoding API
+  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
+
+    '
+  version: 2024-08-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+- url: https://forge.evolutionaryscale.ai
+  description: EvolutionaryScale Forge Production
+security:
+- BearerAuth: []
+tags:
+- name: Encoding
+  description: Tokenize ESMProtein objects into ESMProteinTensor inputs (and back).
+paths:
+  /api/v1/encode:
+    post:
+      summary: Encode Protein To Tensor
+      description: 'Convert an `ESMProtein` into an `ESMProteinTensor` representation by running the structure tokenizer (and other per-track tokenizers) over the input. The tensor representation is required for low-level forward_and_sample and logits operations.
+
+        '
+      operationId: encode
+      tags:
+      - Encoding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodeRequest'
+      responses:
+        '200':
+          description: Tokenized protein tensor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProteinTensor'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/decode:
+    post:
+      summary: Decode Protein Tensor
+      description: 'Inverse of encode. Runs the structure token decoder to convert an `ESMProteinTensor` back into an `ESMProtein` with sequence and atom coordinates.
+
+        '
+      operationId: decode
+      tags:
+      - Encoding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecodeRequest'
+      responses:
+        '200':
+          description: Decoded protein.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProtein'
+        4XX:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    DecodeRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    EncodeRequest:
+      type: object
+      required:
+      - model
+      - protein
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
+    ESMProtein:
+      type: object
+      description: Raw protein representation with optional sequence, structure, function, secondary structure, and SASA tracks.
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes (A, R, N, ..., V). Underscore `_` marks masked positions.
+          example: MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT
+        coordinates:
+          type: array
+          description: Per-residue atom37 coordinates (list of [37,3] arrays).
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+        secondary_structure:
+          type: string
+          description: DSSP-style per-residue secondary structure annotation.
+        sasa:
+          type: array
+          description: Per-residue solvent accessible surface area.
+          items:
+            type: number
+        function_annotations:
+          type: array
+          description: Optional per-residue function annotations.
+          items:
+            type: object
+        ptm:
+          type: number
+          description: Predicted TM-score (if available).
+        plddt:
+          type: array
+          description: Per-residue pLDDT confidence (if available).
+          items:
+            type: number
+    ESMProteinTensor:
+      type: object
+      description: Tokenized representation of a protein across all ESM3 tracks.
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+        structure:
+          type: array
+          items:
+            type: integer
+        secondary_structure:
+          type: array
+          items:
+            type: integer
+        sasa:
+          type: array
+          items:
+            type: integer
+        function:
+          type: array
+          items:
+            type: integer
+        residue_annotations:
+          type: array
+          items:
+            type: integer
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.
