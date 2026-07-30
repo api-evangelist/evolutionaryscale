@@ -1,110 +1,175 @@
 aid: evolutionaryscale
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/evolutionaryscale.png
 url: https://raw.githubusercontent.com/api-evangelist/evolutionaryscale/refs/heads/main/apis.yml
 apis:
-  - aid: evolutionaryscale:forge-esm3-api
-    name: EvolutionaryScale Forge ESM3 API
-    tags:
-      - AI
-      - Biology
-      - Foundation Models
-      - Proteins
-      - ESM3
-      - Generation
-    humanURL: https://forge.evolutionaryscale.ai
-    properties:
-      - url: https://forge.evolutionaryscale.ai
-        type: Documentation
-      - url: https://github.com/Biohub/esm
-        type: SourceCode
-      - url: openapi/evolutionaryscale-forge-esm3-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/evolutionaryscale-esm-protein-schema.json
-        type: JSONSchema
-      - url: json-schema/evolutionaryscale-generation-config-schema.json
-        type: JSONSchema
-      - url: json-ld/evolutionaryscale-context.jsonld
-        type: JSONLD
-    description: >-
-      Hosted inference API for the ESM3 multimodal protein language model. Reasons jointly across sequence, structure,
-      and function tracks. Provides generate, batch_generate, encode, decode, forward_and_sample, and logits operations
-      across small (1.4B), medium (7B), and large (98B) parameter checkpoints. Accessed via the `esm` Python SDK (`pip
-      install esm`) using a bearer token issued by forge.evolutionaryscale.ai. Closed beta with commercial license
-      tiers.
-  - aid: evolutionaryscale:forge-esmc-api
-    name: EvolutionaryScale Forge ESM Cambrian API
-    tags:
-      - AI
-      - Biology
-      - Foundation Models
-      - Proteins
-      - ESM Cambrian
-      - Embeddings
-      - Representation Learning
-    humanURL: https://forge.evolutionaryscale.ai
-    properties:
-      - url: https://forge.evolutionaryscale.ai
-        type: Documentation
-      - url: https://github.com/Biohub/esm
-        type: SourceCode
-      - url: openapi/evolutionaryscale-forge-esmc-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/evolutionaryscale-logits-output-schema.json
-        type: JSONSchema
-    description: >-
-      Hosted inference API for the ESM Cambrian (ESM C) protein representation learning model family. Drop-in
-      replacement for ESM2 offering comparable accuracy at lower memory footprint. Available in 300M, 600M, and 6B
-      parameter sizes. Exposes encode and logits operations for generating protein sequence embeddings, hidden states,
-      and per-residue logits for downstream representation tasks.
-  - aid: evolutionaryscale:forge-folding-api
-    name: EvolutionaryScale Forge Folding API
-    tags:
-      - AI
-      - Biology
-      - Foundation Models
-      - Proteins
-      - Structure Prediction
-      - Inverse Folding
-    humanURL: https://forge.evolutionaryscale.ai
-    properties:
-      - url: https://forge.evolutionaryscale.ai
-        type: Documentation
-      - url: https://github.com/Biohub/esm
-        type: SourceCode
-      - url: openapi/evolutionaryscale-forge-folding-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Hosted folding and inverse-folding inference endpoints. `fold` predicts protein backbone coordinates plus
-      pLDDT/PTM confidence from an input sequence; `inverse_fold` designs candidate sequences consistent with an input
-      structure. Includes an `msa` endpoint for fetching multiple sequence alignments used to condition predictions.
-  - aid: evolutionaryscale:esm-python-sdk
-    name: EvolutionaryScale ESM Python SDK
-    tags:
-      - AI
-      - Biology
-      - SDK
-      - Python
-      - Open Source
-      - ESM3
-      - ESM Cambrian
-    humanURL: https://github.com/Biohub/esm
-    properties:
-      - url: https://github.com/Biohub/esm
-        type: SourceCode
-      - url: https://pypi.org/project/esm/
-        type: SDKs
-      - url: https://huggingface.co/biohub/esm3-sm-open-v1
-        type: Documentation
-      - url: https://huggingface.co/biohub/esmc-300m-2024-12
-        type: Documentation
-      - url: https://huggingface.co/biohub/esmc-600m-2024-12
-        type: Documentation
-      - url: https://github.com/Biohub/esm/tree/main/cookbook
-        type: CodeExamples
-    description: >-
-      Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein` multi-track data model,
-      generation/sampling configurations, structure tokenization utilities, and a `forge.client()` factory that swaps
-      local checkpoints for Forge-hosted inference without code changes. Installable from PyPI as `esm`. Mixed
-      commercial / non-commercial licenses.
+- aid: evolutionaryscale:esm-python-sdk
+  name: EvolutionaryScale ESM Python SDK
+  tags:
+  - AI
+  - Biology
+  - SDK
+  - Python
+  - Open Source
+  - ESM3
+  - ESM Cambrian
+  humanURL: https://github.com/Biohub/esm
+  properties:
+  - url: https://github.com/Biohub/esm
+    type: SourceCode
+  - url: https://pypi.org/project/esm/
+    type: SDKs
+  - url: https://huggingface.co/biohub/esm3-sm-open-v1
+    type: Documentation
+  - url: https://huggingface.co/biohub/esmc-300m-2024-12
+    type: Documentation
+  - url: https://huggingface.co/biohub/esmc-600m-2024-12
+    type: Documentation
+  - url: https://github.com/Biohub/esm/tree/main/cookbook
+    type: CodeExamples
+  description: >-
+    Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein` multi-track data
+    model, generation/sampling configurations, structure tokenization utilities, and a `forge.client()`
+    factory that swaps local checkpoints for Forge-hosted inference without code changes. Installable
+    from PyPI as `esm`. Mixed commercial / non-commercial licenses.
+- aid: evolutionaryscale:evolutionaryscale-embeddings-api
+  name: EvolutionaryScale Embeddings API
+  description: Sequence-only tokenization and representation extraction.
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
+- aid: evolutionaryscale:evolutionaryscale-encoding-api
+  name: EvolutionaryScale Encoding API
+  description: Tokenize ESMProtein objects into ESMProteinTensor inputs (and back).
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - Encoding
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-encoding-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
+- aid: evolutionaryscale:evolutionaryscale-generation-api
+  name: EvolutionaryScale Generation API
+  description: Generate proteins across sequence, structure, and function tracks.
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - Generation
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-generation-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
+- aid: evolutionaryscale:evolutionaryscale-msa-api
+  name: EvolutionaryScale MSA API
+  description: Fetch multiple sequence alignments used by structure predictors.
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - MSA
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-msa-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
+- aid: evolutionaryscale:evolutionaryscale-sampling-api
+  name: EvolutionaryScale Sampling API
+  description: Low-level forward passes with logits and sampling control.
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - Sampling
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-sampling-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
+- aid: evolutionaryscale:evolutionaryscale-structure-api
+  name: EvolutionaryScale Structure API
+  description: Predict protein backbone coordinates from sequence and back.
+  humanURL: https://forge.evolutionaryscale.ai
+  tags:
+  - Structure
+  properties:
+  - type: OpenAPI
+    url: openapi/evolutionaryscale-structure-api-openapi.yml
+  - type: Documentation
+    url: https://forge.evolutionaryscale.ai
+  - type: SourceCode
+    url: https://github.com/Biohub/esm
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-esm-protein-schema.json
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-generation-config-schema.json
+  - type: JSONLD
+    url: json-ld/evolutionaryscale-context.jsonld
+  - type: JSONSchema
+    url: json-schema/evolutionaryscale-logits-output-schema.json
 name: EvolutionaryScale
 tags:
   - AI
