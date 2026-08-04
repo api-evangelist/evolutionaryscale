@@ -1,0 +1,526 @@
+openapi: 3.1.0
+info:
+  title: EvolutionaryScale Forge ESM3 API
+  description: >
+    Hosted inference API for the ESM3 multimodal protein language model from
+    EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and
+    function tracks. The Forge API exposes generate, batch_generate, encode,
+    decode, forward_and_sample, and logits operations across small (1.4B),
+    medium (7B), and large (98B) parameter checkpoints. All requests authenticate
+    with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI
+    is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is
+    the canonical client for the Forge service.
+  version: 2024-08-01
+  contact:
+    name: EvolutionaryScale Forge
+    url: https://forge.evolutionaryscale.ai
+  license:
+    name: Cambrian Inference Clickthrough License Agreement
+    url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+servers:
+  - url: https://forge.evolutionaryscale.ai
+    description: EvolutionaryScale Forge Production
+security:
+  - BearerAuth: []
+tags:
+  - name: Generation
+    description: Generate proteins across sequence, structure, and function tracks.
+  - name: Encoding
+    description: Tokenize ESMProtein objects into ESMProteinTensor inputs (and back).
+  - name: Sampling
+    description: Low-level forward passes with logits and sampling control.
+paths:
+  /api/v1/generate:
+    post:
+      summary: Generate Protein With ESM3
+      description: >
+        Iteratively samples tokens on the requested track of an `ESMProtein`
+        input, filling in masked positions until the track is complete. Wraps
+        encode, iterative sampling, and decode in a single call. Returns a
+        fully populated `ESMProtein`.
+      operationId: generate
+      tags:
+        - Generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+            examples:
+              SequenceCompletion:
+                $ref: '#/components/examples/SequenceCompletionRequest'
+      responses:
+        '200':
+          description: Generated protein with completed track.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProtein'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/batch_generate:
+    post:
+      summary: Batch Generate Proteins With ESM3
+      description: >
+        Generate multiple proteins concurrently using a list of `ESMProtein`
+        inputs and a parallel list of `GenerationConfig` objects. Returns a
+        list of completed `ESMProtein` results in the same order.
+      operationId: batchGenerate
+      tags:
+        - Generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchGenerateRequest'
+      responses:
+        '200':
+          description: List of generated proteins.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ESMProtein'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/encode:
+    post:
+      summary: Encode Protein To Tensor
+      description: >
+        Convert an `ESMProtein` into an `ESMProteinTensor` representation by
+        running the structure tokenizer (and other per-track tokenizers) over
+        the input. The tensor representation is required for low-level
+        forward_and_sample and logits operations.
+      operationId: encode
+      tags:
+        - Encoding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodeRequest'
+      responses:
+        '200':
+          description: Tokenized protein tensor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProteinTensor'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/decode:
+    post:
+      summary: Decode Protein Tensor
+      description: >
+        Inverse of encode. Runs the structure token decoder to convert an
+        `ESMProteinTensor` back into an `ESMProtein` with sequence and atom
+        coordinates.
+      operationId: decode
+      tags:
+        - Encoding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecodeRequest'
+      responses:
+        '200':
+          description: Decoded protein.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESMProtein'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/forward_and_sample:
+    post:
+      summary: Forward And Sample
+      description: >
+        Executes a single forward pass of ESM3 against a tokenized protein and
+        samples tokens according to a `SamplingConfig`. Intended for power
+        users who need fine-grained control over each iteration (for example,
+        chain-of-thought protein design or custom sampling schedules).
+      operationId: forwardAndSample
+      tags:
+        - Sampling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForwardAndSampleRequest'
+      responses:
+        '200':
+          description: Sampled output with optional logits and entropy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForwardAndSampleOutput'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /api/v1/logits:
+    post:
+      summary: Get Logits And Embeddings
+      description: >
+        Returns raw per-position logits, embeddings, and optional hidden states
+        for a tokenized protein. The SDK discourages routine use because logits
+        payloads are large; prefer encode + forward_and_sample for typical
+        workflows.
+      operationId: logits
+      tags:
+        - Sampling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogitsRequest'
+      responses:
+        '200':
+          description: Logits and embeddings response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogitsOutput'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Forge API token issued via forge.evolutionaryscale.ai.
+  schemas:
+    ESMProtein:
+      type: object
+      description: Raw protein representation with optional sequence, structure, function, secondary structure, and SASA tracks.
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes (A, R, N, ..., V). Underscore `_` marks masked positions.
+          example: "MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT"
+        coordinates:
+          type: array
+          description: Per-residue atom37 coordinates (list of [37,3] arrays).
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+        secondary_structure:
+          type: string
+          description: DSSP-style per-residue secondary structure annotation.
+        sasa:
+          type: array
+          description: Per-residue solvent accessible surface area.
+          items:
+            type: number
+        function_annotations:
+          type: array
+          description: Optional per-residue function annotations.
+          items:
+            type: object
+        ptm:
+          type: number
+          description: Predicted TM-score (if available).
+        plddt:
+          type: array
+          description: Per-residue pLDDT confidence (if available).
+          items:
+            type: number
+    ESMProteinTensor:
+      type: object
+      description: Tokenized representation of a protein across all ESM3 tracks.
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+        structure:
+          type: array
+          items:
+            type: integer
+        secondary_structure:
+          type: array
+          items:
+            type: integer
+        sasa:
+          type: array
+          items:
+            type: integer
+        function:
+          type: array
+          items:
+            type: integer
+        residue_annotations:
+          type: array
+          items:
+            type: integer
+    GenerationConfig:
+      type: object
+      description: Configuration for an ESM3 generate call.
+      required:
+        - track
+      properties:
+        track:
+          type: string
+          description: Which protein track to generate.
+          enum:
+            - sequence
+            - structure
+            - secondary_structure
+            - sasa
+            - function
+        num_steps:
+          type: integer
+          description: Number of iterative sampling steps.
+          default: 8
+          minimum: 1
+        temperature:
+          type: number
+          description: Sampling temperature.
+          default: 1.0
+          minimum: 0.0
+        top_p:
+          type: number
+          description: Nucleus sampling cutoff.
+          minimum: 0.0
+          maximum: 1.0
+        schedule:
+          type: string
+          description: Decoding schedule (e.g. cosine, linear).
+          enum:
+            - cosine
+            - linear
+        invalid_ids:
+          type: array
+          description: Token IDs that the sampler must never emit.
+          items:
+            type: integer
+    SamplingConfig:
+      type: object
+      description: Per-track sampling configuration for forward_and_sample.
+      properties:
+        sequence:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        secondary_structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        sasa:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        function:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+    SamplingTrackConfig:
+      type: object
+      properties:
+        temperature:
+          type: number
+        top_p:
+          type: number
+        invalid_ids:
+          type: array
+          items:
+            type: integer
+        only_sample_masked_tokens:
+          type: boolean
+          default: true
+    GenerateRequest:
+      type: object
+      required:
+        - model
+        - protein
+        - config
+      properties:
+        model:
+          type: string
+          description: ESM3 model checkpoint identifier.
+          example: esm3-medium-2024-08
+          enum:
+            - esm3-large-2024-03
+            - esm3-medium-2024-08
+            - esm3-small-2024-08
+            - esm3-open
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
+        config:
+          $ref: '#/components/schemas/GenerationConfig'
+    BatchGenerateRequest:
+      type: object
+      required:
+        - model
+        - proteins
+        - configs
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        proteins:
+          type: array
+          items:
+            $ref: '#/components/schemas/ESMProtein'
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenerationConfig'
+    EncodeRequest:
+      type: object
+      required:
+        - model
+        - protein
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
+    DecodeRequest:
+      type: object
+      required:
+        - model
+        - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+    ForwardAndSampleRequest:
+      type: object
+      required:
+        - model
+        - protein_tensor
+        - sampling_config
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        sampling_config:
+          $ref: '#/components/schemas/SamplingConfig'
+    LogitsRequest:
+      type: object
+      required:
+        - model
+        - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        config:
+          type: object
+          properties:
+            sequence:
+              type: boolean
+              default: false
+            structure:
+              type: boolean
+              default: false
+            secondary_structure:
+              type: boolean
+              default: false
+            sasa:
+              type: boolean
+              default: false
+            function:
+              type: boolean
+              default: false
+            return_embeddings:
+              type: boolean
+              default: false
+            return_hidden_states:
+              type: boolean
+              default: false
+            ith_hidden_layer:
+              type: integer
+              default: -1
+    LogitsOutput:
+      type: object
+      description: Logits, embeddings, and optional hidden states.
+      properties:
+        logits:
+          type: object
+          properties:
+            sequence:
+              type: array
+              items:
+                type: array
+                items:
+                  type: number
+            structure:
+              type: array
+              items:
+                type: array
+                items:
+                  type: number
+        embeddings:
+          type: array
+          description: Per-residue embedding vectors.
+          items:
+            type: array
+            items:
+              type: number
+        hidden_states:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+    ForwardAndSampleOutput:
+      type: object
+      properties:
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        per_residue_entropy:
+          type: array
+          items:
+            type: number
+        topk_logprobs:
+          type: object
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    SequenceCompletionRequest:
+      summary: Fill masked positions in a partial sequence
+      value:
+        model: esm3-medium-2024-08
+        protein:
+          sequence: "MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT"
+        config:
+          track: sequence
+          num_steps: 8
+          temperature: 1.0

@@ -1,0 +1,24 @@
+{
+  "provider": "evolutionaryscale",
+  "sources": [
+    "evolutionaryscale-embeddings-api-openapi.yml",
+    "evolutionaryscale-encoding-api-openapi.yml",
+    "evolutionaryscale-generation-api-openapi.yml",
+    "evolutionaryscale-msa-api-openapi.yml",
+    "evolutionaryscale-sampling-api-openapi.yml",
+    "evolutionaryscale-structure-api-openapi.yml"
+  ],
+  "outputs": [
+    "evolutionaryscale-embeddings-api-openapi.yml",
+    "evolutionaryscale-encoding-api-openapi.yml",
+    "evolutionaryscale-generation-api-openapi.yml",
+    "evolutionaryscale-msa-api-openapi.yml",
+    "evolutionaryscale-sampling-api-openapi.yml",
+    "evolutionaryscale-structure-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
