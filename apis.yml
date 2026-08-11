@@ -331,6 +331,10 @@ maintainers:
     url: https://apievangelist.com
 specificationVersion: '0.16'
 common:
+- type: IssueTracker
+  url: https://github.com/Biohub/esm/issues
+- type: Releases
+  url: https://github.com/Biohub/esm/releases
 - type: AgenticAccess
   url: agentic-access/evolutionaryscale-agentic-access.yml
 - type: DomainSecurity
