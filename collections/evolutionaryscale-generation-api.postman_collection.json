@@ -1,0 +1,353 @@
+{
+  "item": [
+    {
+      "id": "a3b24d8d-d1f9-4c6f-8346-74cc0419f8a3",
+      "name": "Generation",
+      "description": {
+        "content": "Generate proteins across sequence, structure, and function tracks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3291cf1c-5d07-4acd-b096-b2e2406da9c8",
+          "name": "Generate Protein With ESM3",
+          "request": {
+            "name": "Generate Protein With ESM3",
+            "description": {
+              "content": "Iteratively samples tokens on the requested track of an `ESMProtein` input, filling in masked positions until the track is complete. Wraps encode, iterative sampling, and decode in a single call. Returns a fully populated `ESMProtein`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein\": {\n    \"sequence\": \"<string>\",\n    \"coordinates\": [\n      [\n        [\n          \"<number>\",\n          \"<number>\"\n        ],\n        [\n          \"<number>\",\n          \"<number>\"\n        ]\n      ],\n      [\n        [\n          \"<number>\",\n          \"<number>\"\n        ],\n        [\n          \"<number>\",\n          \"<number>\"\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"<string>\",\n    \"sasa\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"function_annotations\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ptm\": \"<number>\",\n    \"plddt\": [\n      \"<number>\",\n      \"<number>\"\n    ]\n  },\n  \"config\": {\n    \"track\": \"<string>\",\n    \"num_steps\": 8,\n    \"temperature\": 1,\n    \"top_p\": \"<number>\",\n    \"schedule\": \"<string>\",\n    \"invalid_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49e19fa0-6af1-468b-9fe5-3ff724caad9a",
+              "name": "Generated protein with completed track.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein\": {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\"\n  },\n  \"config\": {\n    \"track\": \"sequence\",\n    \"num_steps\": 8,\n    \"temperature\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n  \"coordinates\": [\n    [\n      [\n        3325.2103285610556,\n        2816.5850019609616\n      ],\n      [\n        7106.172452480009,\n        1176.795373578019\n      ]\n    ],\n    [\n      [\n        2093.1319679984604,\n        6035.377515222813\n      ],\n      [\n        6118.9336787511675,\n        4264.819069779032\n      ]\n    ]\n  ],\n  \"secondary_structure\": \"string\",\n  \"sasa\": [\n    7083.920152533647,\n    4260.048344359535\n  ],\n  \"ptm\": 7694.527172604433,\n  \"plddt\": [\n    4203.534593871632,\n    3390.001876272657\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "610be98b-d1fa-47b4-a8b2-6e15ceada007",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein\": {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\"\n  },\n  \"config\": {\n    \"track\": \"sequence\",\n    \"num_steps\": 8,\n    \"temperature\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05fb48d8-e7a2-4a72-ba70-21d3f098c178",
+          "name": "Batch Generate Proteins With ESM3",
+          "request": {
+            "name": "Batch Generate Proteins With ESM3",
+            "description": {
+              "content": "Generate multiple proteins concurrently using a list of `ESMProtein` inputs and a parallel list of `GenerationConfig` objects. Returns a list of completed `ESMProtein` results in the same order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "batch_generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"proteins\": [\n    {\n      \"sequence\": \"<string>\",\n      \"coordinates\": [\n        [\n          [\n            \"<number>\",\n            \"<number>\"\n          ],\n          [\n            \"<number>\",\n            \"<number>\"\n          ]\n        ],\n        [\n          [\n            \"<number>\",\n            \"<number>\"\n          ],\n          [\n            \"<number>\",\n            \"<number>\"\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"<string>\",\n      \"sasa\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"function_annotations\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"ptm\": \"<number>\",\n      \"plddt\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    {\n      \"sequence\": \"<string>\",\n      \"coordinates\": [\n        [\n          [\n            \"<number>\",\n            \"<number>\"\n          ],\n          [\n            \"<number>\",\n            \"<number>\"\n          ]\n        ],\n        [\n          [\n            \"<number>\",\n            \"<number>\"\n          ],\n          [\n            \"<number>\",\n            \"<number>\"\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"<string>\",\n      \"sasa\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"function_annotations\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"ptm\": \"<number>\",\n      \"plddt\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  ],\n  \"configs\": [\n    {\n      \"track\": \"<string>\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": \"<number>\",\n      \"schedule\": \"<string>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"track\": \"<string>\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": \"<number>\",\n      \"schedule\": \"<string>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec06aaa3-2ea5-4449-a5b7-5f5d3c5627b5",
+              "name": "List of generated proteins.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch_generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"proteins\": [\n    {\n      \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n      \"coordinates\": [\n        [\n          [\n            4806.623472881406,\n            2055.9156490125006\n          ],\n          [\n            4010.0343315678024,\n            4500.731425786076\n          ]\n        ],\n        [\n          [\n            6687.281127925141,\n            3062.9691198872033\n          ],\n          [\n            3274.3733775233254,\n            3672.7290340588415\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"string\",\n      \"sasa\": [\n        4875.9247494001265,\n        5210.4960116636985\n      ],\n      \"ptm\": 6634.257113102572,\n      \"plddt\": [\n        5655.915687390155,\n        7293.22487909341\n      ]\n    },\n    {\n      \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n      \"coordinates\": [\n        [\n          [\n            1915.8287536552155,\n            7880.49693241147\n          ],\n          [\n            8080.224629202822,\n            7437.475994899537\n          ]\n        ],\n        [\n          [\n            6714.911291537553,\n            5407.715341981658\n          ],\n          [\n            4818.6579577881685,\n            2523.093377522253\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"string\",\n      \"sasa\": [\n        5480.813326398136,\n        6999.963893645345\n      ],\n      \"ptm\": 812.9397943292494,\n      \"plddt\": [\n        8848.14016189961,\n        7391.734163708454\n      ]\n    }\n  ],\n  \"configs\": [\n    {\n      \"track\": \"structure\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": 0.09050877120927248,\n      \"schedule\": \"linear\",\n      \"invalid_ids\": [\n        618,\n        1977\n      ]\n    },\n    {\n      \"track\": \"sequence\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": 0.09917810355380519,\n      \"schedule\": \"linear\",\n      \"invalid_ids\": [\n        6370,\n        1536\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n    \"coordinates\": [\n      [\n        [\n          5862.179176684545,\n          5047.223474607553\n        ],\n        [\n          5922.652789662559,\n          1919.4498768768874\n        ]\n      ],\n      [\n        [\n          5821.34206494152,\n          2748.4453694592935\n        ],\n        [\n          9752.378376937195,\n          2747.38944882732\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"string\",\n    \"sasa\": [\n      2215.6329103133985,\n      3134.054108010963\n    ],\n    \"ptm\": 7286.511104930668,\n    \"plddt\": [\n      3857.7861952696026,\n      2103.445900628427\n    ]\n  },\n  {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n    \"coordinates\": [\n      [\n        [\n          1640.3494003987528,\n          3861.087145456965\n        ],\n        [\n          6518.098973948063,\n          93.48716094733645\n        ]\n      ],\n      [\n        [\n          2725.0700537542516,\n          1025.825357729454\n        ],\n        [\n          1038.085899623552,\n          5045.065262843424\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"string\",\n    \"sasa\": [\n      3887.6006778222772,\n      1147.3170636105779\n    ],\n    \"ptm\": 8853.591841823956,\n    \"plddt\": [\n      1259.5843747165293,\n      7349.571891840165\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0741631-33f8-4df2-bbe2-a6f1aa3076f7",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch_generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"proteins\": [\n    {\n      \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n      \"coordinates\": [\n        [\n          [\n            4806.623472881406,\n            2055.9156490125006\n          ],\n          [\n            4010.0343315678024,\n            4500.731425786076\n          ]\n        ],\n        [\n          [\n            6687.281127925141,\n            3062.9691198872033\n          ],\n          [\n            3274.3733775233254,\n            3672.7290340588415\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"string\",\n      \"sasa\": [\n        4875.9247494001265,\n        5210.4960116636985\n      ],\n      \"ptm\": 6634.257113102572,\n      \"plddt\": [\n        5655.915687390155,\n        7293.22487909341\n      ]\n    },\n    {\n      \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n      \"coordinates\": [\n        [\n          [\n            1915.8287536552155,\n            7880.49693241147\n          ],\n          [\n            8080.224629202822,\n            7437.475994899537\n          ]\n        ],\n        [\n          [\n            6714.911291537553,\n            5407.715341981658\n          ],\n          [\n            4818.6579577881685,\n            2523.093377522253\n          ]\n        ]\n      ],\n      \"secondary_structure\": \"string\",\n      \"sasa\": [\n        5480.813326398136,\n        6999.963893645345\n      ],\n      \"ptm\": 812.9397943292494,\n      \"plddt\": [\n        8848.14016189961,\n        7391.734163708454\n      ]\n    }\n  ],\n  \"configs\": [\n    {\n      \"track\": \"structure\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": 0.09050877120927248,\n      \"schedule\": \"linear\",\n      \"invalid_ids\": [\n        618,\n        1977\n      ]\n    },\n    {\n      \"track\": \"sequence\",\n      \"num_steps\": 8,\n      \"temperature\": 1,\n      \"top_p\": 0.09917810355380519,\n      \"schedule\": \"linear\",\n      \"invalid_ids\": [\n        6370,\n        1536\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://forge.evolutionaryscale.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e49291c9-6319-4236-9af5-c28923c2a292",
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Generation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.\n\n\nContact Support:\n Name: EvolutionaryScale Forge",
+      "type": "text/plain"
+    }
+  }
+}

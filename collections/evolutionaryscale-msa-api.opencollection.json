@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings MSA API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MSA",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch Multiple Sequence Alignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/msa",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch a multiple sequence alignment (MSA) for the input sequence. The MSA can be passed into subsequent fold calls to improve accuracy.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

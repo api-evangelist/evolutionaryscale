@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Encoding API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Encoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Encode Protein To Tensor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/encode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert an `ESMProtein` into an `ESMProteinTensor` representation by running the structure tokenizer (and other per-track tokenizers) over the input. The tensor representation is required for low-level forward_and_sample and logits operations.\n"
+        },
+        {
+          "info": {
+            "name": "Decode Protein Tensor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/decode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inverse of encode. Runs the structure token decoder to convert an `ESMProteinTensor` back into an `ESMProtein` with sequence and atom coordinates.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Encode Protein Sequence With ESM C",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/esmc/encode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

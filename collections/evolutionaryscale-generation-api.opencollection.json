@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Generation API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Protein With ESM3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Iteratively samples tokens on the requested track of an `ESMProtein` input, filling in masked positions until the track is complete. Wraps encode, iterative sampling, and decode in a single call. Returns a fully populated `ESMProtein`.\n"
+        },
+        {
+          "info": {
+            "name": "Batch Generate Proteins With ESM3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/batch_generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate multiple proteins concurrently using a list of `ESMProtein` inputs and a parallel list of `GenerationConfig` objects. Returns a list of completed `ESMProtein` results in the same order.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

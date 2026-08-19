@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Structure API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Structure",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fold Sequence To Structure",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/fold",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Predict atom37 backbone coordinates, per-residue pLDDT confidence, and predicted TM-score (PTM) for an input amino acid sequence. Returns a full `ESMProtein` with `coordinates`, `plddt`, and `ptm` populated.\n"
+        },
+        {
+          "info": {
+            "name": "Inverse Fold Structure To Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/inverse_fold",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate one or more candidate amino acid sequences that fold to the provided structure. Accepts atom37 coordinates plus optional per-residue temperature controls.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

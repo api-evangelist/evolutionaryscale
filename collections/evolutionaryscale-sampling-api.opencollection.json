@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Sampling API",
+    "version": "2024-08-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sampling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Forward And Sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/forward_and_sample",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a single forward pass of ESM3 against a tokenized protein and samples tokens according to a `SamplingConfig`. Intended for power users who need fine-grained control over each iteration (for example, chain-of-thought protein design or custom sampling schedules).\n"
+        },
+        {
+          "info": {
+            "name": "Get Logits And Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/logits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns raw per-position logits, embeddings, and optional hidden states for a tokenized protein. The SDK discourages routine use because logits payloads are large; prefer encode + forward_and_sample for typical workflows.\n"
+        },
+        {
+          "info": {
+            "name": "Get ESM C Logits And Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://forge.evolutionaryscale.ai/api/v1/esmc/logits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

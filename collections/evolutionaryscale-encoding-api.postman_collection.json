@@ -1,0 +1,353 @@
+{
+  "item": [
+    {
+      "id": "be400f2a-74b8-4c5d-afc0-86c10b218a6b",
+      "name": "Encoding",
+      "description": {
+        "content": "Tokenize ESMProtein objects into ESMProteinTensor inputs (and back).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16c80d10-085f-48d4-801a-f13082a68f6c",
+          "name": "Encode Protein To Tensor",
+          "request": {
+            "name": "Encode Protein To Tensor",
+            "description": {
+              "content": "Convert an `ESMProtein` into an `ESMProteinTensor` representation by running the structure tokenizer (and other per-track tokenizers) over the input. The tensor representation is required for low-level forward_and_sample and logits operations.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "encode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein\": {\n    \"sequence\": \"<string>\",\n    \"coordinates\": [\n      [\n        [\n          \"<number>\",\n          \"<number>\"\n        ],\n        [\n          \"<number>\",\n          \"<number>\"\n        ]\n      ],\n      [\n        [\n          \"<number>\",\n          \"<number>\"\n        ],\n        [\n          \"<number>\",\n          \"<number>\"\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"<string>\",\n    \"sasa\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"function_annotations\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ptm\": \"<number>\",\n    \"plddt\": [\n      \"<number>\",\n      \"<number>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1dc33886-1a5c-423a-9a41-d5487a186473",
+              "name": "Tokenized protein tensor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "encode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein\": {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n    \"coordinates\": [\n      [\n        [\n          6450.387076445651,\n          6605.143704232055\n        ],\n        [\n          7014.622050385697,\n          3880.3549247721758\n        ]\n      ],\n      [\n        [\n          7427.130525657143,\n          6986.7327147451615\n        ],\n        [\n          9660.674585681158,\n          5398.619802365519\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"string\",\n    \"sasa\": [\n      5232.393504448224,\n      6204.248463410391\n    ],\n    \"ptm\": 9797.786811609229,\n    \"plddt\": [\n      3046.2234962282364,\n      6351.111506566131\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequence\": [\n    6514,\n    4828\n  ],\n  \"structure\": [\n    528,\n    2207\n  ],\n  \"secondary_structure\": [\n    9665,\n    9914\n  ],\n  \"sasa\": [\n    1697,\n    2419\n  ],\n  \"function\": [\n    8796,\n    7838\n  ],\n  \"residue_annotations\": [\n    6766,\n    9509\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a4eaaf-e60e-4592-87e9-76256dceab5d",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "encode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein\": {\n    \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n    \"coordinates\": [\n      [\n        [\n          6450.387076445651,\n          6605.143704232055\n        ],\n        [\n          7014.622050385697,\n          3880.3549247721758\n        ]\n      ],\n      [\n        [\n          7427.130525657143,\n          6986.7327147451615\n        ],\n        [\n          9660.674585681158,\n          5398.619802365519\n        ]\n      ]\n    ],\n    \"secondary_structure\": \"string\",\n    \"sasa\": [\n      5232.393504448224,\n      6204.248463410391\n    ],\n    \"ptm\": 9797.786811609229,\n    \"plddt\": [\n      3046.2234962282364,\n      6351.111506566131\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "691e9d79-98eb-45ba-8098-f79242e6a695",
+          "name": "Decode Protein Tensor",
+          "request": {
+            "name": "Decode Protein Tensor",
+            "description": {
+              "content": "Inverse of encode. Runs the structure token decoder to convert an `ESMProteinTensor` back into an `ESMProtein` with sequence and atom coordinates.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "decode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"secondary_structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"sasa\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"function\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"residue_annotations\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bba48eda-7dd1-4690-ad8e-226ab74fd917",
+              "name": "Decoded protein.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "decode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      1826,\n      7056\n    ],\n    \"structure\": [\n      7217,\n      4398\n    ],\n    \"secondary_structure\": [\n      4004,\n      3364\n    ],\n    \"sasa\": [\n      4601,\n      885\n    ],\n    \"function\": [\n      7738,\n      1464\n    ],\n    \"residue_annotations\": [\n      4740,\n      7313\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sequence\": \"MKTAYIAKQRQISFVK_____SSERVKKLLVGDIVT\",\n  \"coordinates\": [\n    [\n      [\n        2040.7220544817872,\n        7999.853296564739\n      ],\n      [\n        7551.056849028058,\n        1464.1911456835921\n      ]\n    ],\n    [\n      [\n        3452.3649871211837,\n        7278.529134053417\n      ],\n      [\n        5091.685372902488,\n        8455.049142876887\n      ]\n    ]\n  ],\n  \"secondary_structure\": \"string\",\n  \"sasa\": [\n    4499.093809800296,\n    7844.477654218223\n  ],\n  \"ptm\": 2618.0780040359487,\n  \"plddt\": [\n    6509.218888654048,\n    5159.865432584382\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c477de7c-42d8-4c50-ad58-2281a8a995a6",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "decode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      1826,\n      7056\n    ],\n    \"structure\": [\n      7217,\n      4398\n    ],\n    \"secondary_structure\": [\n      4004,\n      3364\n    ],\n    \"sasa\": [\n      4601,\n      885\n    ],\n    \"function\": [\n      7738,\n      1464\n    ],\n    \"residue_annotations\": [\n      4740,\n      7313\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://forge.evolutionaryscale.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "71dde4fa-a96a-4a68-affd-bd51586878d3",
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Encoding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.\n\n\nContact Support:\n Name: EvolutionaryScale Forge",
+      "type": "text/plain"
+    }
+  }
+}

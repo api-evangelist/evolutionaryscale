@@ -1,0 +1,512 @@
+{
+  "item": [
+    {
+      "id": "bad394d7-29dd-4821-9574-875a3d10ecd6",
+      "name": "Sampling",
+      "description": {
+        "content": "Low-level forward passes with logits and sampling control.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa29556c-ce6d-45f8-834d-054b21d70ad3",
+          "name": "Forward And Sample",
+          "request": {
+            "name": "Forward And Sample",
+            "description": {
+              "content": "Executes a single forward pass of ESM3 against a tokenized protein and samples tokens according to a `SamplingConfig`. Intended for power users who need fine-grained control over each iteration (for example, chain-of-thought protein design or custom sampling schedules).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "forward_and_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"secondary_structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"sasa\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"function\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"residue_annotations\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"sampling_config\": {\n    \"sequence\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"structure\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"secondary_structure\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"sasa\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"function\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"invalid_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"only_sample_masked_tokens\": true\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e0bfc51-8b4e-4b9c-94a3-6bc0d6344d74",
+              "name": "Sampled output with optional logits and entropy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "forward_and_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      313,\n      5845\n    ],\n    \"structure\": [\n      8838,\n      4699\n    ],\n    \"secondary_structure\": [\n      1879,\n      5594\n    ],\n    \"sasa\": [\n      9763,\n      6337\n    ],\n    \"function\": [\n      8430,\n      4998\n    ],\n    \"residue_annotations\": [\n      4660,\n      3411\n    ]\n  },\n  \"sampling_config\": {\n    \"sequence\": {\n      \"temperature\": 5549.887933861895,\n      \"top_p\": 6393.686345448322,\n      \"invalid_ids\": [\n        284,\n        6679\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"structure\": {\n      \"temperature\": 1552.3260439836995,\n      \"top_p\": 2420.6252927356895,\n      \"invalid_ids\": [\n        2586,\n        7620\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"secondary_structure\": {\n      \"temperature\": 4287.846658744614,\n      \"top_p\": 8653.73175016421,\n      \"invalid_ids\": [\n        4711,\n        8748\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"sasa\": {\n      \"temperature\": 5647.81194043512,\n      \"top_p\": 2058.8420566674135,\n      \"invalid_ids\": [\n        252,\n        5297\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"function\": {\n      \"temperature\": 9660.447059909893,\n      \"top_p\": 886.2868339525676,\n      \"invalid_ids\": [\n        1982,\n        829\n      ],\n      \"only_sample_masked_tokens\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"protein_tensor\": {\n    \"sequence\": [\n      2197,\n      9831\n    ],\n    \"structure\": [\n      5730,\n      4104\n    ],\n    \"secondary_structure\": [\n      4543,\n      5511\n    ],\n    \"sasa\": [\n      1355,\n      9165\n    ],\n    \"function\": [\n      8127,\n      321\n    ],\n    \"residue_annotations\": [\n      420,\n      423\n    ]\n  },\n  \"per_residue_entropy\": [\n    583.7465912400453,\n    9199.505824033979\n  ],\n  \"topk_logprobs\": {},\n  \"embeddings\": [\n    [\n      6582.650726046088,\n      7511.104045031771\n    ],\n    [\n      852.025764471408,\n      3129.391339622649\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65a8b21d-bee8-463f-a48e-0abf08039b12",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "forward_and_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      313,\n      5845\n    ],\n    \"structure\": [\n      8838,\n      4699\n    ],\n    \"secondary_structure\": [\n      1879,\n      5594\n    ],\n    \"sasa\": [\n      9763,\n      6337\n    ],\n    \"function\": [\n      8430,\n      4998\n    ],\n    \"residue_annotations\": [\n      4660,\n      3411\n    ]\n  },\n  \"sampling_config\": {\n    \"sequence\": {\n      \"temperature\": 5549.887933861895,\n      \"top_p\": 6393.686345448322,\n      \"invalid_ids\": [\n        284,\n        6679\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"structure\": {\n      \"temperature\": 1552.3260439836995,\n      \"top_p\": 2420.6252927356895,\n      \"invalid_ids\": [\n        2586,\n        7620\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"secondary_structure\": {\n      \"temperature\": 4287.846658744614,\n      \"top_p\": 8653.73175016421,\n      \"invalid_ids\": [\n        4711,\n        8748\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"sasa\": {\n      \"temperature\": 5647.81194043512,\n      \"top_p\": 2058.8420566674135,\n      \"invalid_ids\": [\n        252,\n        5297\n      ],\n      \"only_sample_masked_tokens\": true\n    },\n    \"function\": {\n      \"temperature\": 9660.447059909893,\n      \"top_p\": 886.2868339525676,\n      \"invalid_ids\": [\n        1982,\n        829\n      ],\n      \"only_sample_masked_tokens\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9dc1dbf1-eef5-465d-b925-4087cff03a09",
+          "name": "Get Logits And Embeddings",
+          "request": {
+            "name": "Get Logits And Embeddings",
+            "description": {
+              "content": "Returns raw per-position logits, embeddings, and optional hidden states for a tokenized protein. The SDK discourages routine use because logits payloads are large; prefer encode + forward_and_sample for typical workflows.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "logits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"secondary_structure\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"sasa\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"function\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"residue_annotations\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"config\": {\n    \"sequence\": false,\n    \"structure\": false,\n    \"secondary_structure\": false,\n    \"sasa\": false,\n    \"function\": false,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "879fcd42-be0a-40da-92fc-da4e6a700527",
+              "name": "Logits and embeddings response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      1647,\n      1670\n    ],\n    \"structure\": [\n      9820,\n      8205\n    ],\n    \"secondary_structure\": [\n      7412,\n      7911\n    ],\n    \"sasa\": [\n      8671,\n      3660\n    ],\n    \"function\": [\n      894,\n      3530\n    ],\n    \"residue_annotations\": [\n      6519,\n      1581\n    ]\n  },\n  \"config\": {\n    \"sequence\": false,\n    \"structure\": false,\n    \"secondary_structure\": false,\n    \"sasa\": false,\n    \"function\": false,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logits\": {\n    \"sequence\": [\n      [\n        2301.8134524303014,\n        699.9982112348613\n      ],\n      [\n        90.42467118244635,\n        9569.006305495477\n      ]\n    ],\n    \"structure\": [\n      [\n        5910.57348747921,\n        1641.6135637606378\n      ],\n      [\n        7626.497484296256,\n        8728.527682699687\n      ]\n    ]\n  },\n  \"embeddings\": [\n    [\n      4633.231711350339,\n      9621.512469868801\n    ],\n    [\n      3622.931808973965,\n      6191.072162520424\n    ]\n  ],\n  \"hidden_states\": [\n    [\n      [\n        4908.15095290411,\n        493.7442787044566\n      ],\n      [\n        8607.252647851754,\n        8040.287461027769\n      ]\n    ],\n    [\n      [\n        8360.90303755634,\n        306.13819317364175\n      ],\n      [\n        9555.710551310023,\n        8631.251650893573\n      ]\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cf3f552-2e24-417a-9233-80ff2646f62e",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esm3-medium-2024-08\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      1647,\n      1670\n    ],\n    \"structure\": [\n      9820,\n      8205\n    ],\n    \"secondary_structure\": [\n      7412,\n      7911\n    ],\n    \"sasa\": [\n      8671,\n      3660\n    ],\n    \"function\": [\n      894,\n      3530\n    ],\n    \"residue_annotations\": [\n      6519,\n      1581\n    ]\n  },\n  \"config\": {\n    \"sequence\": false,\n    \"structure\": false,\n    \"secondary_structure\": false,\n    \"sasa\": false,\n    \"function\": false,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2630259-c86d-47e4-be51-0e4fb203f1c7",
+          "name": "Get ESM C Logits And Embeddings",
+          "request": {
+            "name": "Get ESM C Logits And Embeddings",
+            "description": {
+              "content": "Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "esmc",
+                "logits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d3e0caeb-e8d4-4bf7-842c-b007ea431c11",
+              "name": "Logits and embedding output.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      3729,\n      4325\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"logits\": {\n    \"sequence\": [\n      [\n        3188.4570571363392,\n        8683.890487018747\n      ],\n      [\n        5242.31594498962,\n        6099.946177150032\n      ]\n    ]\n  },\n  \"embeddings\": [\n    [\n      8279.653718527647,\n      2079.902016561118\n    ],\n    [\n      338.1235302634078,\n      9095.915769287127\n    ]\n  ],\n  \"hidden_states\": [\n    [\n      [\n        4586.609445117053,\n        1950.3763270860309\n      ],\n      [\n        5379.629691159566,\n        7337.393396046351\n      ]\n    ],\n    [\n      [\n        5949.470388526338,\n        1.5275456982777325\n      ],\n      [\n        1621.2246480882432,\n        7312.067418684381\n      ]\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69c1a2b5-75e1-4763-98b6-7ac34c12e6c6",
+              "name": "Error returned by the Forge API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "esmc",
+                    "logits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"esmc-300m-2024-12\",\n  \"protein_tensor\": {\n    \"sequence\": [\n      3729,\n      4325\n    ]\n  },\n  \"config\": {\n    \"sequence\": true,\n    \"return_embeddings\": false,\n    \"return_hidden_states\": false,\n    \"ith_hidden_layer\": -1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://forge.evolutionaryscale.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f8e1deaa-0194-4c60-818f-d3bdf21d99c2",
+    "name": "EvolutionaryScale Forge ESM3 Embeddings Sampling API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.\n\n\nContact Support:\n Name: EvolutionaryScale Forge",
+      "type": "text/plain"
+    }
+  }
+}
