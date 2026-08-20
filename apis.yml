@@ -18,6 +18,14 @@ apis:
 - aid: evolutionaryscale:esm-python-sdk
   name: EvolutionaryScale ESM Python SDK
   tags:
+  - Artificial Intelligence
+  - Biology
+  - SDK
+  - Python
+  - Open-Source
+  - ESM3
+  - ESM Cambrian
+  tags_raw:
   - AI
   - Biology
   - SDK
@@ -172,6 +180,25 @@ apis:
     url: json-schema/evolutionaryscale-logits-output-schema.json
 name: EvolutionaryScale
 tags:
+  - Artificial Intelligence
+  - Biology
+  - Bioinformatics
+  - Computational Biology
+  - Drug Discovery
+  - ESM
+  - ESM3
+  - ESM Cambrian
+  - Foundation Models
+  - Generative Biology
+  - Life Sciences
+  - Machine-Learning
+  - Protein Design
+  - Protein Folding
+  - Protein Language Models
+  - Proteins
+  - Representation Learning
+  - Structure Prediction
+tags_raw:
   - AI
   - Artificial Intelligence
   - Biology
