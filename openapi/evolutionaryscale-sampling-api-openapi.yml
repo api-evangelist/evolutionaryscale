@@ -1,16 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: EvolutionaryScale Forge ESM3 Embeddings Sampling API
-  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
-
-    '
-  version: 2024-08-01
+  title: Evolutionaryscale Sampling API
   contact:
     name: EvolutionaryScale Forge
     url: https://forge.evolutionaryscale.ai
   license:
     name: Cambrian Inference Clickthrough License Agreement
     url: https://www.evolutionaryscale.ai/policies/cambrian-inference-clickthrough-license-agreement
+  version: '1.0'
+  description: 'Operations tagged Sampling across 2 of this provider''s published API definitions: evolutionaryscale-forge-esm3-api-openapi.yml, evolutionaryscale-forge-esmc-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://forge.evolutionaryscale.ai
   description: EvolutionaryScale Forge Production
@@ -23,9 +21,7 @@ paths:
   /api/v1/forward_and_sample:
     post:
       summary: Forward And Sample
-      description: 'Executes a single forward pass of ESM3 against a tokenized protein and samples tokens according to a `SamplingConfig`. Intended for power users who need fine-grained control over each iteration (for example, chain-of-thought protein design or custom sampling schedules).
-
-        '
+      description: Executes a single forward pass of ESM3 against a tokenized protein and samples tokens according to a `SamplingConfig`. Intended for power users who need fine-grained control over each iteration (for example, chain-of-thought protein design or custom sampling schedules).
       operationId: forwardAndSample
       tags:
       - Sampling
@@ -44,12 +40,13 @@ paths:
                 $ref: '#/components/schemas/ForwardAndSampleOutput'
         4XX:
           $ref: '#/components/responses/ErrorResponse'
+    servers:
+    - url: https://forge.evolutionaryscale.ai
+      description: EvolutionaryScale Forge Production
   /api/v1/logits:
     post:
       summary: Get Logits And Embeddings
-      description: 'Returns raw per-position logits, embeddings, and optional hidden states for a tokenized protein. The SDK discourages routine use because logits payloads are large; prefer encode + forward_and_sample for typical workflows.
-
-        '
+      description: Returns raw per-position logits, embeddings, and optional hidden states for a tokenized protein. The SDK discourages routine use because logits payloads are large; prefer encode + forward_and_sample for typical workflows.
       operationId: logits
       tags:
       - Sampling
@@ -68,12 +65,13 @@ paths:
                 $ref: '#/components/schemas/LogitsOutput'
         4XX:
           $ref: '#/components/responses/ErrorResponse'
+    servers:
+    - url: https://forge.evolutionaryscale.ai
+      description: EvolutionaryScale Forge Production
   /api/v1/esmc/logits:
     post:
       summary: Get ESM C Logits And Embeddings
-      description: 'Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.
-
-        '
+      description: Returns per-residue sequence logits and (optionally) embeddings or hidden states for an `ESMProteinTensor` produced by `esmc/encode`. Use for representation learning, classification heads, mutational effect prediction, and similar downstream tasks.
       operationId: esmcLogits
       tags:
       - Sampling
@@ -92,79 +90,39 @@ paths:
                 $ref: '#/components/schemas/LogitsOutput_2'
         4XX:
           $ref: '#/components/responses/ErrorResponse'
+    servers:
+    - url: https://forge.evolutionaryscale.ai
+      description: EvolutionaryScale Forge Production
 components:
   schemas:
-    ForwardAndSampleOutput:
+    ESMProteinTensor:
       type: object
-      properties:
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        per_residue_entropy:
-          type: array
-          items:
-            type: number
-        topk_logprobs:
-          type: object
-        embeddings:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
-    ESMCLogitsRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      properties:
-        model:
-          type: string
-          example: esmc-300m-2024-12
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor_2'
-        config:
-          $ref: '#/components/schemas/LogitsConfig'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
-    SamplingConfig:
-      type: object
-      description: Per-track sampling configuration for forward_and_sample.
+      description: Tokenized representation of a protein across all ESM3 tracks.
       properties:
         sequence:
-          $ref: '#/components/schemas/SamplingTrackConfig'
+          type: array
+          items:
+            type: integer
         structure:
-          $ref: '#/components/schemas/SamplingTrackConfig'
+          type: array
+          items:
+            type: integer
         secondary_structure:
-          $ref: '#/components/schemas/SamplingTrackConfig'
+          type: array
+          items:
+            type: integer
         sasa:
-          $ref: '#/components/schemas/SamplingTrackConfig'
+          type: array
+          items:
+            type: integer
         function:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-    LogitsConfig:
-      type: object
-      properties:
-        sequence:
-          type: boolean
-          default: true
-        return_embeddings:
-          type: boolean
-          default: false
-        return_hidden_states:
-          type: boolean
-          default: false
-        ith_hidden_layer:
-          type: integer
-          default: -1
+          type: array
+          items:
+            type: integer
+        residue_annotations:
+          type: array
+          items:
+            type: integer
     LogitsOutput:
       type: object
       description: Logits, embeddings, and optional hidden states.
@@ -199,69 +157,6 @@ components:
               type: array
               items:
                 type: number
-    SamplingTrackConfig:
-      type: object
-      properties:
-        temperature:
-          type: number
-        top_p:
-          type: number
-        invalid_ids:
-          type: array
-          items:
-            type: integer
-        only_sample_masked_tokens:
-          type: boolean
-          default: true
-    ESMProteinTensor_2:
-      type: object
-      properties:
-        sequence:
-          type: array
-          items:
-            type: integer
-    ForwardAndSampleRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      - sampling_config
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        sampling_config:
-          $ref: '#/components/schemas/SamplingConfig'
-    ESMProteinTensor:
-      type: object
-      description: Tokenized representation of a protein across all ESM3 tracks.
-      properties:
-        sequence:
-          type: array
-          items:
-            type: integer
-        structure:
-          type: array
-          items:
-            type: integer
-        secondary_structure:
-          type: array
-          items:
-            type: integer
-        sasa:
-          type: array
-          items:
-            type: integer
-        function:
-          type: array
-          items:
-            type: integer
-        residue_annotations:
-          type: array
-          items:
-            type: integer
     LogitsRequest:
       type: object
       required:
@@ -300,6 +195,97 @@ components:
             ith_hidden_layer:
               type: integer
               default: -1
+    SamplingConfig:
+      type: object
+      description: Per-track sampling configuration for forward_and_sample.
+      properties:
+        sequence:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        secondary_structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        sasa:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        function:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    ForwardAndSampleRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      - sampling_config
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        sampling_config:
+          $ref: '#/components/schemas/SamplingConfig'
+    SamplingTrackConfig:
+      type: object
+      properties:
+        temperature:
+          type: number
+        top_p:
+          type: number
+        invalid_ids:
+          type: array
+          items:
+            type: integer
+        only_sample_masked_tokens:
+          type: boolean
+          default: true
+    ForwardAndSampleOutput:
+      type: object
+      properties:
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        per_residue_entropy:
+          type: array
+          items:
+            type: number
+        topk_logprobs:
+          type: object
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+    ESMCLogitsRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esmc-300m-2024-12
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor_2'
+        config:
+          $ref: '#/components/schemas/LogitsConfig'
+    ESMProteinTensor_2:
+      type: object
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
     LogitsOutput_2:
       type: object
       properties:
@@ -326,6 +312,21 @@ components:
               type: array
               items:
                 type: number
+    LogitsConfig:
+      type: object
+      properties:
+        sequence:
+          type: boolean
+          default: true
+        return_embeddings:
+          type: boolean
+          default: false
+        return_hidden_states:
+          type: boolean
+          default: false
+        ith_hidden_layer:
+          type: integer
+          default: -1
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.
@@ -338,3 +339,6 @@ components:
       type: http
       scheme: bearer
       description: Forge API token issued via forge.evolutionaryscale.ai.
+x-refined-from:
+- evolutionaryscale-forge-esm3-api-openapi.yml
+- evolutionaryscale-forge-esmc-api-openapi.yml

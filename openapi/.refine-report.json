@@ -1,24 +1,35 @@
 {
   "provider": "evolutionaryscale",
   "sources": [
-    "evolutionaryscale-embeddings-api-openapi.yml",
-    "evolutionaryscale-encoding-api-openapi.yml",
-    "evolutionaryscale-generation-api-openapi.yml",
-    "evolutionaryscale-msa-api-openapi.yml",
-    "evolutionaryscale-sampling-api-openapi.yml",
-    "evolutionaryscale-structure-api-openapi.yml"
+    "_original/evolutionaryscale-forge-esm3-api-openapi.yml",
+    "_original/evolutionaryscale-forge-esmc-api-openapi.yml",
+    "_original/evolutionaryscale-forge-folding-api-openapi.yml"
   ],
   "outputs": [
-    "evolutionaryscale-embeddings-api-openapi.yml",
     "evolutionaryscale-encoding-api-openapi.yml",
     "evolutionaryscale-generation-api-openapi.yml",
-    "evolutionaryscale-msa-api-openapi.yml",
     "evolutionaryscale-sampling-api-openapi.yml",
+    "evolutionaryscale-embeddings-api-openapi.yml",
+    "evolutionaryscale-msa-api-openapi.yml",
     "evolutionaryscale-structure-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "evolutionaryscale-forge-esm3-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "evolutionaryscale-forge-esmc-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "evolutionaryscale-forge-folding-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Sampling' spans 2 source specs (evolutionaryscale-forge-esm3-api-openapi.yml, evolutionaryscale-forge-esmc-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "evolutionaryscale-embeddings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evolutionaryscale-encoding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evolutionaryscale-generation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evolutionaryscale-msa-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evolutionaryscale-sampling-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evolutionaryscale-structure-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

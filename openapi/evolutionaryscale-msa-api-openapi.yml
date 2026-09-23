@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: EvolutionaryScale Forge ESM3 Embeddings MSA API
-  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
-
-    '
+  title: EvolutionaryScale Forge Folding MSA API
+  description: Hosted folding and inverse-folding inference for protein structure tasks. `fold` predicts protein backbone coordinates plus pLDDT and PTM confidence from an amino acid sequence; `inverse_fold` designs candidate sequences consistent with a target structure. An `msa` endpoint fetches multiple sequence alignments that condition fold predictions for improved accuracy.
   version: 2024-08-01
   contact:
     name: EvolutionaryScale Forge
@@ -23,9 +21,7 @@ paths:
   /api/v1/msa:
     post:
       summary: Fetch Multiple Sequence Alignment
-      description: 'Fetch a multiple sequence alignment (MSA) for the input sequence. The MSA can be passed into subsequent fold calls to improve accuracy.
-
-        '
+      description: Fetch a multiple sequence alignment (MSA) for the input sequence. The MSA can be passed into subsequent fold calls to improve accuracy.
       operationId: msa
       tags:
       - MSA
@@ -45,18 +41,14 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    MSARequest:
-      type: object
-      required:
-      - sequence
-      properties:
-        sequence:
-          type: string
-          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-        max_depth:
-          type: integer
-          default: 256
     MSAResponse:
       type: object
       properties:
@@ -79,13 +71,17 @@ components:
               type: string
             code:
               type: string
-  responses:
-    ErrorResponse:
-      description: Error returned by the Forge API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    MSARequest:
+      type: object
+      required:
+      - sequence
+      properties:
+        sequence:
+          type: string
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        max_depth:
+          type: integer
+          default: 256
   securitySchemes:
     BearerAuth:
       type: http

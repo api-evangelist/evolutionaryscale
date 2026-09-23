@@ -1,10 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: EvolutionaryScale Forge ESM3 Embeddings API
-  description: 'Hosted inference API for the ESM3 multimodal protein language model from EvolutionaryScale. ESM3 reasons jointly across sequence, structure, and function tracks. The Forge API exposes generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. All requests authenticate with a Forge API token obtained from forge.evolutionaryscale.ai. This OpenAPI is reconstructed from the open-source `esm` Python SDK (Biohub/esm) which is the canonical client for the Forge service.
-
-    '
-  version: 2024-08-01
+  title: EvolutionaryScale Forge ESM Cambrian Embeddings API
+  description: Hosted inference API for the ESM Cambrian (ESM C) protein representation learning family. ESM C is a drop-in replacement for ESM2 with comparable or better accuracy at substantially reduced memory footprint. Provides encode and logits operations for sequence embedding workflows. Available in 300M, 600M, and 6B parameter checkpoints.
+  version: 2024-12-01
   contact:
     name: EvolutionaryScale Forge
     url: https://forge.evolutionaryscale.ai
@@ -23,9 +21,7 @@ paths:
   /api/v1/esmc/encode:
     post:
       summary: Encode Protein Sequence With ESM C
-      description: 'Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.
-
-        '
+      description: Tokenize an `ESMProtein` (sequence track only) into an `ESMProteinTensor` ready for logits / embedding retrieval. ESM C operates over the sequence track exclusively.
       operationId: esmcEncode
       tags:
       - Embeddings
@@ -49,6 +45,32 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
+    ESMProteinTensor:
+      type: object
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+    ESMProtein:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
     ESMCEncodeRequest:
       type: object
       required:
@@ -64,32 +86,6 @@ components:
           - esmc-6b-2024-12
         protein:
           $ref: '#/components/schemas/ESMProtein'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
-    ESMProtein:
-      type: object
-      properties:
-        sequence:
-          type: string
-          description: Amino acid sequence using one-letter codes.
-          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-    ESMProteinTensor:
-      type: object
-      properties:
-        sequence:
-          type: array
-          items:
-            type: integer
   examples:
     SimpleEncodeExample:
       summary: Encode a short protein sequence
