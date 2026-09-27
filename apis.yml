@@ -1,6 +1,9 @@
 aid: evolutionaryscale
 deliveryModel:
   model: unknown
+  license_evidence:
+    not_product:
+    - biohub/esm
   open_source: unknown
   commercial: false
   callable_host: true
@@ -8,8 +11,8 @@ deliveryModel:
   confidence: low
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: free
@@ -34,7 +37,7 @@ apis:
   - Biology
   - SDK
   - Python
-  - Open-Source
+  - Open Source
   - ESM3
   - ESM Cambrian
   tags_raw:
@@ -45,6 +48,7 @@ apis:
   - Open Source
   - ESM3
   - ESM Cambrian
+  - Open-Source
   humanURL: https://github.com/Biohub/esm
   properties:
   - url: https://github.com/Biohub/esm
@@ -202,7 +206,7 @@ tags:
 - Foundation Models
 - Generative Biology
 - Life Sciences
-- Machine-Learning
+- Machine Learning
 - Protein Design
 - Protein Folding
 - Protein Language Models
@@ -229,6 +233,7 @@ tags_raw:
 - Proteins
 - Representation Learning
 - Structure Prediction
+- Machine-Learning
 commonProperties:
 - url: https://www.evolutionaryscale.ai
   type: Portal

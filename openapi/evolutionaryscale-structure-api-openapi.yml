@@ -66,46 +66,14 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  examples:
+    SimpleFoldExample:
+      summary: Fold a short sequence
+      value:
+        model: esm3-medium-2024-08
+        sequence: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        num_recycles: 3
   schemas:
-    InverseFoldResponse:
-      type: object
-      properties:
-        sequences:
-          type: array
-          items:
-            type: string
-    FoldResponse:
-      type: object
-      properties:
-        sequence:
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        plddt:
-          type: array
-          items:
-            type: number
-        ptm:
-          type: number
-    InverseFoldRequest:
-      type: object
-      required:
-      - coordinates
-      - model
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        temperature:
-          type: number
-          default: 1.0
-          minimum: 0.0
-        num_samples:
-          type: integer
-          default: 1
-          minimum: 1
     FoldRequest:
       type: object
       required:
@@ -128,6 +96,26 @@ components:
           type: integer
           default: 3
           minimum: 0
+    FoldResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        plddt:
+          type: array
+          items:
+            type: number
+        ptm:
+          type: number
+    InverseFoldResponse:
+      type: object
+      properties:
+        sequences:
+          type: array
+          items:
+            type: string
     Error:
       type: object
       properties:
@@ -149,13 +137,25 @@ components:
           type: array
           items:
             type: number
-  examples:
-    SimpleFoldExample:
-      summary: Fold a short sequence
-      value:
-        model: esm3-medium-2024-08
-        sequence: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-        num_recycles: 3
+    InverseFoldRequest:
+      type: object
+      required:
+      - coordinates
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        temperature:
+          type: number
+          default: 1.0
+          minimum: 0.0
+        num_samples:
+          type: integer
+          default: 1
+          minimum: 1
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.

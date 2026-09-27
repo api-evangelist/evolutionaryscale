@@ -45,32 +45,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
-    ESMProteinTensor:
-      type: object
-      properties:
-        sequence:
-          type: array
-          items:
-            type: integer
-    ESMProtein:
-      type: object
-      properties:
-        sequence:
-          type: string
-          description: Amino acid sequence using one-letter codes.
-          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
     ESMCEncodeRequest:
       type: object
       required:
@@ -86,13 +60,32 @@ components:
           - esmc-6b-2024-12
         protein:
           $ref: '#/components/schemas/ESMProtein'
-  examples:
-    SimpleEncodeExample:
-      summary: Encode a short protein sequence
-      value:
-        model: esmc-300m-2024-12
-        protein:
-          sequence: AAAAA
+    ESMProteinTensor:
+      type: object
+      properties:
+        sequence:
+          type: array
+          items:
+            type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    ESMProtein:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.
@@ -100,6 +93,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  examples:
+    SimpleEncodeExample:
+      summary: Encode a short protein sequence
+      value:
+        model: esmc-300m-2024-12
+        protein:
+          sequence: AAAAA
   securitySchemes:
     BearerAuth:
       type: http

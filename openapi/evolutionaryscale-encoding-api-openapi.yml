@@ -92,6 +92,29 @@ components:
           type: array
           items:
             type: integer
+    DecodeRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
     ESMProtein:
       type: object
       description: Raw protein representation with optional sequence, structure, function, secondary structure, and SASA tracks.
@@ -141,29 +164,6 @@ components:
           example: esm3-medium-2024-08
         protein:
           $ref: '#/components/schemas/ESMProtein'
-    DecodeRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.

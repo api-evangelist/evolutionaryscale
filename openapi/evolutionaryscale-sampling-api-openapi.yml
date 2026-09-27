@@ -123,6 +123,77 @@ components:
           type: array
           items:
             type: integer
+    SamplingTrackConfig:
+      type: object
+      properties:
+        temperature:
+          type: number
+        top_p:
+          type: number
+        invalid_ids:
+          type: array
+          items:
+            type: integer
+        only_sample_masked_tokens:
+          type: boolean
+          default: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    ForwardAndSampleRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      - sampling_config
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        sampling_config:
+          $ref: '#/components/schemas/SamplingConfig'
+    ForwardAndSampleOutput:
+      type: object
+      properties:
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        per_residue_entropy:
+          type: array
+          items:
+            type: number
+        topk_logprobs:
+          type: object
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+    SamplingConfig:
+      type: object
+      description: Per-track sampling configuration for forward_and_sample.
+      properties:
+        sequence:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        secondary_structure:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        sasa:
+          $ref: '#/components/schemas/SamplingTrackConfig'
+        function:
+          $ref: '#/components/schemas/SamplingTrackConfig'
     LogitsOutput:
       type: object
       description: Logits, embeddings, and optional hidden states.
@@ -195,77 +266,13 @@ components:
             ith_hidden_layer:
               type: integer
               default: -1
-    SamplingConfig:
+    ESMProteinTensor_2:
       type: object
-      description: Per-track sampling configuration for forward_and_sample.
       properties:
         sequence:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-        structure:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-        secondary_structure:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-        sasa:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-        function:
-          $ref: '#/components/schemas/SamplingTrackConfig'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
-    ForwardAndSampleRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      - sampling_config
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        sampling_config:
-          $ref: '#/components/schemas/SamplingConfig'
-    SamplingTrackConfig:
-      type: object
-      properties:
-        temperature:
-          type: number
-        top_p:
-          type: number
-        invalid_ids:
           type: array
           items:
             type: integer
-        only_sample_masked_tokens:
-          type: boolean
-          default: true
-    ForwardAndSampleOutput:
-      type: object
-      properties:
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        per_residue_entropy:
-          type: array
-          items:
-            type: number
-        topk_logprobs:
-          type: object
-        embeddings:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
     ESMCLogitsRequest:
       type: object
       required:
@@ -279,13 +286,6 @@ components:
           $ref: '#/components/schemas/ESMProteinTensor_2'
         config:
           $ref: '#/components/schemas/LogitsConfig'
-    ESMProteinTensor_2:
-      type: object
-      properties:
-        sequence:
-          type: array
-          items:
-            type: integer
     LogitsOutput_2:
       type: object
       properties:
