@@ -45,21 +45,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
-    ESMCEncodeRequest:
-      type: object
-      required:
-      - model
-      - protein
-      properties:
-        model:
-          type: string
-          example: esmc-300m-2024-12
-          enum:
-          - esmc-300m-2024-12
-          - esmc-600m-2024-12
-          - esmc-6b-2024-12
-        protein:
-          $ref: '#/components/schemas/ESMProtein'
     ESMProteinTensor:
       type: object
       properties:
@@ -79,6 +64,21 @@ components:
               type: string
             code:
               type: string
+    ESMCEncodeRequest:
+      type: object
+      required:
+      - model
+      - protein
+      properties:
+        model:
+          type: string
+          example: esmc-300m-2024-12
+          enum:
+          - esmc-300m-2024-12
+          - esmc-600m-2024-12
+          - esmc-6b-2024-12
+        protein:
+          $ref: '#/components/schemas/ESMProtein'
     ESMProtein:
       type: object
       properties:
@@ -86,13 +86,6 @@ components:
           type: string
           description: Amino acid sequence using one-letter codes.
           example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-  responses:
-    ErrorResponse:
-      description: Error returned by the Forge API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   examples:
     SimpleEncodeExample:
       summary: Encode a short protein sequence
@@ -100,6 +93,13 @@ components:
         model: esmc-300m-2024-12
         protein:
           sequence: AAAAA
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

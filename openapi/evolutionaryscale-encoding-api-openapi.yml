@@ -92,17 +92,6 @@ components:
           type: array
           items:
             type: integer
-    DecodeRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
     Error:
       type: object
       properties:
@@ -115,6 +104,17 @@ components:
               type: string
             code:
               type: string
+    DecodeRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
     ESMProtein:
       type: object
       description: Raw protein representation with optional sequence, structure, function, secondary structure, and SASA tracks.

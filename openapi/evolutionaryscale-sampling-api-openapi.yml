@@ -137,49 +137,6 @@ components:
         only_sample_masked_tokens:
           type: boolean
           default: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
-    ForwardAndSampleRequest:
-      type: object
-      required:
-      - model
-      - protein_tensor
-      - sampling_config
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        sampling_config:
-          $ref: '#/components/schemas/SamplingConfig'
-    ForwardAndSampleOutput:
-      type: object
-      properties:
-        protein_tensor:
-          $ref: '#/components/schemas/ESMProteinTensor'
-        per_residue_entropy:
-          type: array
-          items:
-            type: number
-        topk_logprobs:
-          type: object
-        embeddings:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
     SamplingConfig:
       type: object
       description: Per-track sampling configuration for forward_and_sample.
@@ -194,6 +151,18 @@ components:
           $ref: '#/components/schemas/SamplingTrackConfig'
         function:
           $ref: '#/components/schemas/SamplingTrackConfig'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
     LogitsOutput:
       type: object
       description: Logits, embeddings, and optional hidden states.
@@ -228,6 +197,37 @@ components:
               type: array
               items:
                 type: number
+    ForwardAndSampleRequest:
+      type: object
+      required:
+      - model
+      - protein_tensor
+      - sampling_config
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        sampling_config:
+          $ref: '#/components/schemas/SamplingConfig'
+    ForwardAndSampleOutput:
+      type: object
+      properties:
+        protein_tensor:
+          $ref: '#/components/schemas/ESMProteinTensor'
+        per_residue_entropy:
+          type: array
+          items:
+            type: number
+        topk_logprobs:
+          type: object
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
     LogitsRequest:
       type: object
       required:
@@ -273,6 +273,21 @@ components:
           type: array
           items:
             type: integer
+    LogitsConfig:
+      type: object
+      properties:
+        sequence:
+          type: boolean
+          default: true
+        return_embeddings:
+          type: boolean
+          default: false
+        return_hidden_states:
+          type: boolean
+          default: false
+        ith_hidden_layer:
+          type: integer
+          default: -1
     ESMCLogitsRequest:
       type: object
       required:
@@ -312,21 +327,6 @@ components:
               type: array
               items:
                 type: number
-    LogitsConfig:
-      type: object
-      properties:
-        sequence:
-          type: boolean
-          default: true
-        return_embeddings:
-          type: boolean
-          default: false
-        return_hidden_states:
-          type: boolean
-          default: false
-        ith_hidden_layer:
-          type: integer
-          default: -1
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.

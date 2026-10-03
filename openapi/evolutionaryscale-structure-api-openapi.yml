@@ -66,14 +66,67 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  examples:
-    SimpleFoldExample:
-      summary: Fold a short sequence
-      value:
-        model: esm3-medium-2024-08
-        sequence: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-        num_recycles: 3
   schemas:
+    Coordinates:
+      type: array
+      description: Per-residue atom37 coordinates, shape [L, 37, 3].
+      items:
+        type: array
+        items:
+          type: array
+          items:
+            type: number
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            code:
+              type: string
+    FoldResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        plddt:
+          type: array
+          items:
+            type: number
+        ptm:
+          type: number
+    InverseFoldRequest:
+      type: object
+      required:
+      - coordinates
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        temperature:
+          type: number
+          default: 1.0
+          minimum: 0.0
+        num_samples:
+          type: integer
+          default: 1
+          minimum: 1
+    InverseFoldResponse:
+      type: object
+      properties:
+        sequences:
+          type: array
+          items:
+            type: string
     FoldRequest:
       type: object
       required:
@@ -96,66 +149,13 @@ components:
           type: integer
           default: 3
           minimum: 0
-    FoldResponse:
-      type: object
-      properties:
-        sequence:
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        plddt:
-          type: array
-          items:
-            type: number
-        ptm:
-          type: number
-    InverseFoldResponse:
-      type: object
-      properties:
-        sequences:
-          type: array
-          items:
-            type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            code:
-              type: string
-    Coordinates:
-      type: array
-      description: Per-residue atom37 coordinates, shape [L, 37, 3].
-      items:
-        type: array
-        items:
-          type: array
-          items:
-            type: number
-    InverseFoldRequest:
-      type: object
-      required:
-      - coordinates
-      - model
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        temperature:
-          type: number
-          default: 1.0
-          minimum: 0.0
-        num_samples:
-          type: integer
-          default: 1
-          minimum: 1
+  examples:
+    SimpleFoldExample:
+      summary: Fold a short sequence
+      value:
+        model: esm3-medium-2024-08
+        sequence: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        num_recycles: 3
   responses:
     ErrorResponse:
       description: Error returned by the Forge API.

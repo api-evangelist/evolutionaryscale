@@ -41,6 +41,13 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  responses:
+    ErrorResponse:
+      description: Error returned by the Forge API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     MSAResponse:
       type: object
@@ -75,13 +82,6 @@ components:
         max_depth:
           type: integer
           default: 256
-  responses:
-    ErrorResponse:
-      description: Error returned by the Forge API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http
