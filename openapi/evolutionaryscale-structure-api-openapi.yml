@@ -67,6 +67,47 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
+    FoldRequest:
+      type: object
+      required:
+      - sequence
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        sequence:
+          type: string
+          description: Amino acid sequence using one-letter codes.
+          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
+        msa:
+          type: array
+          description: Optional MSA in A3M format to condition the fold.
+          items:
+            type: string
+        num_recycles:
+          type: integer
+          default: 3
+          minimum: 0
+    InverseFoldRequest:
+      type: object
+      required:
+      - coordinates
+      - model
+      properties:
+        model:
+          type: string
+          example: esm3-medium-2024-08
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        temperature:
+          type: number
+          default: 1.0
+          minimum: 0.0
+        num_samples:
+          type: integer
+          default: 1
+          minimum: 1
     Coordinates:
       type: array
       description: Per-residue atom37 coordinates, shape [L, 37, 3].
@@ -76,6 +117,13 @@ components:
           type: array
           items:
             type: number
+    InverseFoldResponse:
+      type: object
+      properties:
+        sequences:
+          type: array
+          items:
+            type: string
     Error:
       type: object
       properties:
@@ -101,54 +149,6 @@ components:
             type: number
         ptm:
           type: number
-    InverseFoldRequest:
-      type: object
-      required:
-      - coordinates
-      - model
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        temperature:
-          type: number
-          default: 1.0
-          minimum: 0.0
-        num_samples:
-          type: integer
-          default: 1
-          minimum: 1
-    InverseFoldResponse:
-      type: object
-      properties:
-        sequences:
-          type: array
-          items:
-            type: string
-    FoldRequest:
-      type: object
-      required:
-      - sequence
-      - model
-      properties:
-        model:
-          type: string
-          example: esm3-medium-2024-08
-        sequence:
-          type: string
-          description: Amino acid sequence using one-letter codes.
-          example: MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ
-        msa:
-          type: array
-          description: Optional MSA in A3M format to condition the fold.
-          items:
-            type: string
-        num_recycles:
-          type: integer
-          default: 3
-          minimum: 0
   examples:
     SimpleFoldExample:
       summary: Fold a short sequence
