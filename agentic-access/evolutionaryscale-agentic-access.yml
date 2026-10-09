@@ -1,37 +1,24 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/evolutionaryscale-forge-esm3-api-openapi.yml, openapi/evolutionaryscale-forge-esmc-api-openapi.yml,
-  openapi/evolutionaryscale-forge-folding-api-openapi.yml
+source: openapi/evolutionaryscale-embeddings-api-openapi.yml, openapi/evolutionaryscale-encoding-api-openapi.yml,
+  openapi/evolutionaryscale-generation-api-openapi.yml, openapi/evolutionaryscale-msa-api-openapi.yml,
+  openapi/evolutionaryscale-sampling-api-openapi.yml, openapi/evolutionaryscale-structure-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 11
   by_action_class:
-    acting: 11
+    acting: 10
+    connected: 1
   by_consequence:
-    write: 11
+    write: 10
+    read: 1
   human_in_the_loop_required: 0
 operations:
-- path: /api/v1/generate
+- path: /api/v1/esmc/encode
   method: post
-  operationId: generate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/batch_generate
-  method: post
-  operationId: batchGenerate
+  operationId: esmcEncode
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -77,6 +64,48 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /api/v1/generate
+  method: post
+  operationId: generate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/batch_generate
+  method: post
+  operationId: batchGenerate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/msa
+  method: post
+  operationId: msa
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/forward_and_sample
   method: post
   operationId: forwardAndSample
@@ -96,22 +125,6 @@ operations:
 - path: /api/v1/logits
   method: post
   operationId: logits
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/esmc/encode
-  method: post
-  operationId: esmcEncode
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -160,22 +173,6 @@ operations:
 - path: /api/v1/inverse_fold
   method: post
   operationId: inverseFold
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/msa
-  method: post
-  operationId: msa
   x-agentic-access:
     action-class: acting
     consequence: write
