@@ -1,4 +1,4 @@
-# EvolutionaryScale (evolutionaryscale)
+# EvolutionaryScale
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,148 +66,161 @@
 
 EvolutionaryScale is a New York-based biology foundation model lab spun out of Meta AI's ESM team that develops AI to deepen scientific understanding of biology. Its flagship ESM3 model is a multimodal generative protein language model that reasons jointly across sequence, structure, and function, scaling to 98B parameters trained on 771B tokens from 2.78B natural proteins. The companion ESM Cambrian (ESM C) family provides protein representation learning at 300M–6B parameters as a performant ESM2 replacement. Models are accessible via the hosted Forge inference API (forge.evolutionaryscale.ai), an open-source Python SDK (`pip install esm`), open weights on Hugging Face, and AWS Marketplace (SageMaker, NVIDIA BioNeMo and NIM). EvolutionaryScale was integrated into the Biohub organization in 2025; the ESM SDK now lives at github.com/Biohub/esm.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/evolutionaryscale/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/evolutionaryscale/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Biology · Bioinformatics · Computational Biology · Drug Discovery · ESM · ESM3 · ESM Cambrian · Foundation Models · Generative Biology · Life Sciences · Machine Learning
 
-## Scope
+## EvolutionaryScale on APIs.io
 
-- **Position:** Consuming
+Everything profiled for EvolutionaryScale is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/evolutionaryscale/](https://apis.io/providers/evolutionaryscale/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-- AI
-- Artificial Intelligence
-- Biology
-- Bioinformatics
-- Computational Biology
-- Drug Discovery
-- ESM
-- ESM3
-- ESM Cambrian
-- Foundation Models
-- Generative Biology
-- Life Sciences
-- Machine Learning
-- Protein Design
-- Protein Folding
-- Protein Language Models
-- Proteins
-- Representation Learning
-- Structure Prediction
+- [EvolutionaryScale ESM Python SDK](https://apis.io/apis/evolutionaryscale/esm-python-sdk/) — Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein` multi-track data model, generation/sampling configurations, structure…
+- [EvolutionaryScale Embeddings API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-embeddings-api/) — Sequence-only tokenization and representation extraction.
+- [EvolutionaryScale Encoding API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-encoding-api/) — Tokenize ESMProtein objects into ESMProteinTensor inputs (and back).
+- [EvolutionaryScale Generation API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-generation-api/) — Generate proteins across sequence, structure, and function tracks.
+- [EvolutionaryScale MSA API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-msa-api/) — Fetch multiple sequence alignments used by structure predictors.
+- [EvolutionaryScale Sampling API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-sampling-api/) — Low-level forward passes with logits and sampling control.
+- [EvolutionaryScale Structure API](https://apis.io/apis/evolutionaryscale/evolutionaryscale-structure-api/) — Predict protein backbone coordinates from sequence and back.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-24
-- **Modified:** 2026-05-24
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### EvolutionaryScale Forge ESM3 API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Hosted inference API for the ESM3 multimodal protein language model. Reasons jointly across sequence, structure, and function tracks. Provides generate, batch_generate, encode, decode, forward_and_sample, and logits operations across small (1.4B), medium (7B), and large (98B) parameter checkpoints. Accessed via the `esm` Python SDK (`pip install esm`) using a bearer token issued by forge.evolutionaryscale.ai. Closed beta with commercial license tiers.
+- [Evolutionaryscale Agentic Access](https://apis.io/agentic-access/evolutionaryscale/evolutionaryscale-agentic-access/)
 
-- **Human URL:** [https://forge.evolutionaryscale.ai](https://forge.evolutionaryscale.ai)
+#### JSON Schema (3)
 
-#### Tags
+The data models the API reads and writes.
 
-- AI
-- Biology
-- Foundation Models
-- Proteins
-- ESM3
-- Generation
+- [EvolutionaryScale ESMProtein](https://apis.io/schemas/evolutionaryscale/evolutionaryscale-esm-protein/)
+- [EvolutionaryScale GenerationConfig](https://apis.io/schemas/evolutionaryscale/evolutionaryscale-generation-config/)
+- [EvolutionaryScale LogitsOutput](https://apis.io/schemas/evolutionaryscale/evolutionaryscale-logits-output/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://forge.evolutionaryscale.ai)
-- [Source Code](https://github.com/Biohub/esm)
-- [OpenAPI](openapi/evolutionaryscale-forge-esm3-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/evolutionaryscale-forge-esm3-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-esm3-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/evolutionaryscale-esm-protein-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/evolutionaryscale-generation-config-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/evolutionaryscale-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+Linked-data contexts for the provider's vocabulary.
 
-### EvolutionaryScale Forge ESM Cambrian API
+- [Evolutionaryscale Context](https://apis.io/jsonld/evolutionaryscale/evolutionaryscale-context/)
 
-Hosted inference API for the ESM Cambrian (ESM C) protein representation learning model family. Drop-in replacement for ESM2 offering comparable accuracy at lower memory footprint. Available in 300M, 600M, and 6B parameter sizes. Exposes encode and logits operations for generating protein sequence embeddings, hidden states, and per-residue logits for downstream representation tasks.
+#### Vocabulary (1)
 
-- **Human URL:** [https://forge.evolutionaryscale.ai](https://forge.evolutionaryscale.ai)
+The provider's domain terms, defined.
 
-#### Tags
+- [Evolutionaryscale Vocabulary](https://apis.io/vocabularies/evolutionaryscale/evolutionaryscale-vocabulary/)
 
-- AI
-- Biology
-- Foundation Models
-- Proteins
-- ESM Cambrian
-- Embeddings
-- Representation Learning
+#### Examples (3)
 
-#### Properties
+Example requests and responses.
 
-- [Documentation](https://forge.evolutionaryscale.ai)
-- [Source Code](https://github.com/Biohub/esm)
-- [OpenAPI](openapi/evolutionaryscale-forge-esmc-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/evolutionaryscale-forge-esmc-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-esmc-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/evolutionaryscale-logits-output-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Evolutionaryscale Forge Esmc Logits Example](https://apis.io/examples/evolutionaryscale/evolutionaryscale-forge-esmc-logits-example/)
+- [Evolutionaryscale Forge Fold Example](https://apis.io/examples/evolutionaryscale/evolutionaryscale-forge-fold-example/)
+- [Evolutionaryscale Forge Generate Example](https://apis.io/examples/evolutionaryscale/evolutionaryscale-forge-generate-example/)
 
-### EvolutionaryScale Forge Folding API
+#### Collections (9)
 
-Hosted folding and inverse-folding inference endpoints. `fold` predicts protein backbone coordinates plus pLDDT/PTM confidence from an input sequence; `inverse_fold` designs candidate sequences consistent with an input structure. Includes an `msa` endpoint for fetching multiple sequence alignments used to condition predictions.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://forge.evolutionaryscale.ai](https://forge.evolutionaryscale.ai)
+- [EvolutionaryScale Forge ESM3 Embeddings API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-embeddings-api/)
+- [EvolutionaryScale Forge ESM3 Embeddings Encoding API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-encoding-api/)
+- [EvolutionaryScale Forge ESM3 API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-forge-esm3-api/)
+- [EvolutionaryScale Forge ESM Cambrian API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-forge-esmc-api/)
+- [EvolutionaryScale Forge Folding API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-forge-folding-api/)
+- [EvolutionaryScale Forge ESM3 Embeddings Generation API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-generation-api/)
+- [EvolutionaryScale Forge ESM3 Embeddings MSA API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-msa-api/)
+- [EvolutionaryScale Forge ESM3 Embeddings Sampling API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-sampling-api/)
+- [EvolutionaryScale Forge ESM3 Embeddings Structure API](https://apis.io/collections/evolutionaryscale/open-evolutionaryscale-structure-api/)
 
-#### Tags
+#### Governance rules (2)
 
-- AI
-- Biology
-- Foundation Models
-- Proteins
-- Structure Prediction
-- Inverse Folding
+Spectral rulesets for the provider's contracts.
 
-#### Properties
+- [EvolutionaryScale — jsonschema rules](https://apis.io/rules/evolutionaryscale/evolutionaryscale-jsonschema-spectral-rules/)
+- [EvolutionaryScale API Rules](https://apis.io/rules/evolutionaryscale/evolutionaryscale-rules/)
 
-- [Documentation](https://forge.evolutionaryscale.ai)
-- [Source Code](https://github.com/Biohub/esm)
-- [OpenAPI](openapi/evolutionaryscale-forge-folding-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/evolutionaryscale-forge-folding-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-folding-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (2)
 
-### EvolutionaryScale ESM Python SDK
+Authentication, trust centre, and vulnerability disclosure.
 
-Official Python SDK packaging ESM3 and ESM Cambrian model loaders, the `ESMProtein` multi-track data model, generation/sampling configurations, structure tokenization utilities, and a `forge.client()` factory that swaps local checkpoints for Forge-hosted inference without code changes. Installable from PyPI as `esm`. Mixed commercial / non-commercial licenses.
+- [Evolutionaryscale Authentication](https://apis.io/security/evolutionaryscale/evolutionaryscale-authentication/)
+- [Evolutionaryscale Domain Security](https://apis.io/security/evolutionaryscale/evolutionaryscale-domain-security/)
 
-- **Human URL:** [https://github.com/Biohub/esm](https://github.com/Biohub/esm)
+#### Plans and pricing (1)
 
-#### Tags
+Published plans, tiers and prices.
 
-- AI
-- Biology
-- SDK
-- Python
-- Open Source
-- ESM3
-- ESM Cambrian
+- [Evolutionaryscale Plans Pricing](https://apis.io/plans/evolutionaryscale/evolutionaryscale-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Source Code](https://github.com/Biohub/esm)
-- [SDK](https://pypi.org/project/esm/)
-- [Documentation](https://huggingface.co/biohub/esm3-sm-open-v1)
-- [Documentation](https://huggingface.co/biohub/esmc-300m-2024-12)
-- [Documentation](https://huggingface.co/biohub/esmc-600m-2024-12)
-- [Code Examples](https://github.com/Biohub/esm/tree/main/cookbook)
-- [Postman Collection](collections/evolutionaryscale-forge-esm3-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-esm3-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/evolutionaryscale-forge-esmc-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-esmc-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/evolutionaryscale-forge-folding-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/evolutionaryscale-forge-folding-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published request limits.
 
-## Maintainers
+- [Evolutionaryscale Rate Limits](https://apis.io/rate-limits/evolutionaryscale/evolutionaryscale-rate-limits/)
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Evolutionaryscale Finops](https://apis.io/finops/evolutionaryscale/evolutionaryscale-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://evolutionaryscale.ai)
+
+## API Evangelist rating
+
+**Kin Score 34.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 65.7 |
+| Contract governance | 13.6 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 12.5** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/evolutionaryscale/](https://apis.io/providers/evolutionaryscale/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for EvolutionaryScale: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/evolutionaryscale/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
